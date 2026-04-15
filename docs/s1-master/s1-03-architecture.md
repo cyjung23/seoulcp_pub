@@ -37,10 +37,10 @@ GPTBot, Google-Extended, ChatGPT-User, PerplexityBot, Amazonbot, ClaudeBot
 
 ## 표준문서 관리
 
-- 저장소: https://github.com/cyjung23/pubrepo (Public)
-- 경로: pubrepo/seoulcp-docs/
+- 저장소: https://github.com/cyjung23/seoulcp_pub (Public)
+- 경로: seoulcp_pub/docs/
 - AI 직접 read 가능 (raw.githubusercontent.com 경로)
-- write는 Codespaces에서 /workspaces/pubrepo/ clone 후 수정 → push
+- write는 Codespaces에서 /workspaces/seoulcp_pub/ clone 후 수정 → push
 - 갱신일: 2026-04-14
 
 ## Claude Code 환경 (2026-04-14)
