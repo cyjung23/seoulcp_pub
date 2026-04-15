@@ -2,6 +2,13 @@
 
 **최종 갱신:** 2026-04-15
 
+## v2.5 (2026-04-15) — 구글맵 연동
+- clinics 테이블에 latitude, longitude 컬럼 추가
+- Kakao 로컬 API로 2,725/2,727건 좌표 변환 완료 (99.9%)
+- 클리닉 상세 페이지: "지도에서 보기", "길찾기" 구글맵 버튼 추가
+- 클리닉 목록 카드: "지도", "길찾기" 버튼 추가 (treatments, devices 페이지)
+- 좌표 없는 2건(ID 4, 12)은 주소 NULL로 버튼 미표시
+
 ## v2.4 (2026-04-15) — 인프라 변경
 - 표준문서 저장소: pubrepo/seoulcp-docs/ → seoulcp_pub/docs/ 이관 완료
 - GitHub PAT 토큰: All repositories 권한으로 재발급
