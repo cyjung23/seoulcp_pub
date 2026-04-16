@@ -2,6 +2,18 @@
 
 **최종 갱신:** 2026-04-15
 
+## v2.7 (2026-04-16) — 병원 파트너 회원제 Phase 1
+- Supabase Auth 설정 (Email, URL Configuration, Confirm email)
+- clinic_accounts 테이블 생성 (user_id, clinic_id nullable, role, status, RLS)
+- clinic_submissions 테이블 생성 (수정요청 저장용, RLS)
+- 회원가입 (/partner/signup), 로그인 (/partner/login) 페이지
+- 비밀번호 재설정 (/partner/reset-password, /partner/update-password)
+- 파트너 대시보드 (/partner/dashboard) — 관리자/병원회원 메뉴 분리
+- API route (/api/partner/register) — service_role로 RLS 우회 등록
+- Vercel 환경변수 SUPABASE_SERVICE_ROLE_KEY 추가
+- 푸터에 병원 관계자, 이용약관, 개인정보처리방침 링크 추가
+- 계정: cyjung23@gmail.com (admin), idcharm23@gmail.com (clinic_staff, 참의원)
+
 ## v2.6 (2026-04-15) — 데이터 보정
 - 닥터홈즈의원 지방파괴주사(얼굴) 매핑 삭제 (id=33578)
 - 튼살주사 → 참의원 전용 시술로 변경: 47개 클리닉을 튼살레이저로 이동
