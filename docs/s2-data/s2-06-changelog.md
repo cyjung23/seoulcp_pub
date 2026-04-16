@@ -2,6 +2,16 @@
 
 **최종 갱신:** 2026-04-15
 
+## v2.8 (2026-04-16) — 병원 파트너 회원제 Phase 2
+- 관리자 패널: 가입 승인/거절/정지 기능 (/partner/admin)
+- 수정 요청 검토: 병원 정보 + 시술 정보 변경 내역 상세 표시, 승인 시 DB 자동 반영 (/partner/admin/submissions)
+- 병원 정보 수정 폼: 병원명, 전화, 웹사이트, 진료시간, 소개 수정 (/partner/edit-clinic)
+- 시술 정보 수정 폼: 가격, 가격 안내(price_note), 설명 수정 (/partner/edit-treatments)
+- clinic_treatments 테이블에 price_note 컬럼 추가
+- 소비자 페이지에 price_note 표시 (클리닉 상세, 시술 목록, 클리닉 카드)
+- 관리자 계정 cyjung23 → seoulclinicpick@gmail.com 으로 변경
+- API routes: /api/partner/submission, /api/partner/admin/accounts, /api/partner/admin/submissions
+
 ## v2.7 (2026-04-16) — 병원 파트너 회원제 Phase 1
 - Supabase Auth 설정 (Email, URL Configuration, Confirm email)
 - clinic_accounts 테이블 생성 (user_id, clinic_id nullable, role, status, RLS)
