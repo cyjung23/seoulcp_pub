@@ -12,7 +12,7 @@
 - **Phase 5 (SEO):** sitemap.xml에 /ja/ hreflang 추가 (ko/en/ja 3개 언어 alternates)
 - **Phase 6 (검증):** /ja 메인, /ja/treatments/botox, sitemap.xml 정상 확인
 - **보류:** WO-028-B partner 페이지 일본어 (9개 파일 120개소, 일본인 파트너 유입 시 진행)
-- **진행중:** encyclopedia 본문 일본어 번역 159항목 (기획2팀)
+- **완료:** encyclopedia 본문 일본어 번역 159항목 (device 47 + surgery 38 + treatment 74) 전량 DB 반영
 
 ### 기타 수정
 - treatments 목록 "Coming soon" 버그 수정 (treatments 테이블에 없는 slug 컬럼 select 제거)
