@@ -1,8 +1,23 @@
-# S2-06: 변경 이력
+# S2-06: 버전별 변경 사항
 
 **최종 갱신:** 2026-04-17
 
-## v2.10 (2026-04-17) — 메인 페이지 디자인 개선 (WO-026, 진행중)
+## v2.11 (2026-04-17) — 시술 URL 영문 slug 전환 (WO-027)
+
+- standard_treatments 테이블에 slug 컬럼 추가 (TEXT UNIQUE)
+- name_en 기반 120개 시술 slug 자동 생성 (소문자, 하이픈 변환, 특수문자 제거)
+- 용어 구분 준수: 지방파괴주사→adipocytolysis, 지방분해주사→fat-dissolving
+- ellansé → ellanse 수동 보정
+- treatments/[slug]/page.tsx: slug 우선 조회, name_ko fallback, 301 리다이렉트
+- 내부 링크 교체 (10개 파일, 14개소): page.tsx, treatments/page.tsx, clinics/[id]/page.tsx, concerns/[slug]/page.tsx, surgeries/page.tsx, search/page.tsx, wiki/[slug]/page.tsx, DeviceRelatedTreatments.tsx, beauty/mypage/page.tsx, sitemap.ts
+- 각 파일 interface/type에 slug 필드 추가, select 쿼리에 slug 포함
+- concerns/[slug]/page.tsx: standard_treatments에서 slugMap 조회 추가
+- sitemap.xml 전체 영문 slug 기반 URL 출력 확인
+- GSC + Naver Search Advisor sitemap 재제출 완료
+- 검증: /en/treatments/botox, /en/treatments/onda, /ko/treatments/filler, 한글 URL 리다이렉트 정상
+
+## v2.10 (2026-04-17) — 메인 페이지 디자인 개선 (WO-026)
+
 - Quick Links: 글래스모피즘 카드 + 상단 컬러 바 + 3칸 배열, 배경색 #f5fbf9
 - Popular Treatments: Compact Strip 카드 (52px 아이콘바) + 3칸 배열, 그라데이션 배경
 - 시술 9개 표시 (필러, 보톡스, 실리프팅, 울쎄라, 리쥬란, 제모, 써마지, 지방이식, 지방흡입)
@@ -11,11 +26,8 @@
 - 3개 섹션 배경 구분: Browse by Concern(흰색) → Quick Links(#f5fbf9) → Popular Treatments(그라데이션)
 - globals.css에 glass-card-ql, pt-card-glass, pt-strip CSS 추가
 
-## WO-027 (예정) — 시술 URL 영문 slug 전환
-- 목표: /treatments/%EC%98%A8%EB%8B%A4 → /treatments/onda
-- 상세 계획: s4-active/s4-08-wo027-slug.md 참조
-
 ## v2.9 (2026-04-17) — 뷰티회원제 Phase 1+2+3
+
 - beauty_accounts 테이블 생성 (user_id, nickname, preferred_language, RLS)
 - user_picks 테이블 생성 (target_type TEXT, target_id TEXT, Optimistic Update)
 - 뷰티회원 가입 (/beauty/signup), 로그인 (/beauty/login) 페이지
@@ -32,6 +44,7 @@
 - 로그인 후 페이지 새로고침으로 AuthNav 즉시 갱신
 
 ## v2.8 (2026-04-16) — 병원 파트너 회원제 Phase 2
+
 - 관리자 패널: 가입 승인/거절/정지 기능 (/partner/admin)
 - 수정 요청 검토: 병원 정보 + 시술 정보 변경 내역 상세 표시, 승인 시 DB 자동 반영 (/partner/admin/submissions)
 - 병원 정보 수정 폼: 병원명, 전화, 웹사이트, 진료시간, 소개 수정 (/partner/edit-clinic)
@@ -42,6 +55,7 @@
 - API routes: /api/partner/submission, /api/partner/admin/accounts, /api/partner/admin/submissions
 
 ## v2.7 (2026-04-16) — 병원 파트너 회원제 Phase 1
+
 - Supabase Auth 설정 (Email, URL Configuration, Confirm email)
 - clinic_accounts 테이블 생성 (user_id, clinic_id nullable, role, status, RLS)
 - clinic_submissions 테이블 생성 (수정요청 저장용, RLS)
@@ -54,12 +68,14 @@
 - 계정: cyjung23@gmail.com (admin), idcharm23@gmail.com (clinic_staff, 참의원)
 
 ## v2.6 (2026-04-15) — 데이터 보정
+
 - 닥터홈즈의원 지방파괴주사(얼굴) 매핑 삭제 (id=33578)
 - 튼살주사 → 참의원 전용 시술로 변경: 47개 클리닉을 튼살레이저로 이동
 - 클리닉 목록 priority 정렬 적용 (clinic_treatments.priority 전달)
 - 참의원 전체 시술 priority=1 설정
 
 ## v2.5 (2026-04-15) — 구글맵 연동
+
 - clinics 테이블에 latitude, longitude 컬럼 추가
 - Kakao 로컬 API로 2,725/2,727건 좌표 변환 완료 (99.9%)
 - 클리닉 상세 페이지: "지도에서 보기", "길찾기" 구글맵 버튼 추가
@@ -67,6 +83,7 @@
 - 좌표 없는 2건(ID 4, 12)은 주소 NULL로 버튼 미표시
 
 ## v2.4 (2026-04-15) — 인프라 변경
+
 - 표준문서 저장소: pubrepo/seoulcp-docs/ → seoulcp_pub/docs/ 이관 완료
 - GitHub PAT 토큰: All repositories 권한으로 재발급
 - FAQ Schema 빈 text 필드 수정 배포 확인 (커밋 6ff2e28)
@@ -74,4 +91,5 @@
 - 구글맵 연동 우선 착수 결정 (DEC-051)
 
 ## v2.3 ~ v2.0
+
 (이전 내용 동일 — 생략)
