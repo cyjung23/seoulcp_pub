@@ -117,3 +117,14 @@ seoulcp.com에 일본어(/ja/) 페이지를 추가하여 일본인 대상 서비
 
 - 중국어(zh) 추가 시 동일 패턴 적용 (routing, messages, DB 컬럼, 헬퍼 함수)
 - 언어 전환 UI는 처음부터 확장형으로 설계
+
+---
+
+## WO-028-B: Partner 페이지 일본어 적용 (보류)
+
+- **상태:** 보류 (일본인 파트너 클리닉 유입 시 진행)
+- **범위:** partner/ 하위 9개 파일, 120개소
+  - signup(22), edit-treatments(20), dashboard(18), edit-clinic(14), login(12), admin(12), admin/submissions(10), update-password(6), reset-password(6)
+- **우선순위:** 낮음 — 관리자 페이지, SEO 무관, 로그인 필요
+- **예상 소요:** 1~1.5시간
+
