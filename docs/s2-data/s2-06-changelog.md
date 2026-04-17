@@ -2,6 +2,17 @@
 
 **최종 갱신:** 2026-04-17
 
+## v2.12 (2026-04-17) — 일본어 사이트 인프라 + 데이터 (WO-028 Phase 1,2,4)
+
+- i18n 인프라: routing.ts, middleware.ts, request.ts, layout.tsx에 ja 로케일 추가
+- messages/ja.json 생성 (nav, common, home 일본어 UI 텍스트)
+- standard_treatments 테이블에 name_ja 컬럼 추가, 120개 시술 카타카나 번역 입력
+- concerns 테이블에 concern_group_ja 컬럼 추가, 13개 고민 카테고리 일본어 번역 입력
+- 메인 페이지 UI 텍스트 일본어 번역 확보 (코드 반영은 Phase 3에서)
+- 용어 선택: エイジングケア(안티에이징), 美容辞典(백과사전), 美容整形(수술), スキン(피부 뱃지)
+- /ja/ 경로 접속 가능 확인 (콘텐츠는 Phase 3 이후 일본어 표시)
+- treatments 목록 Coming soon 버그 수정 (treatments 테이블에 없는 slug 컬럼 select 제거)
+
 ## v2.11 (2026-04-17) — 시술 URL 영문 slug 전환 (WO-027)
 
 - standard_treatments 테이블에 slug 컬럼 추가 (TEXT UNIQUE)
