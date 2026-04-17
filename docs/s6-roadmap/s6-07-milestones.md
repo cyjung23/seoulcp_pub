@@ -22,3 +22,10 @@
 - /ja 메인, /ja/treatments/botox 등 정상 동작 확인
 - encyclopedia 일본어 컬럼 10개 추가 (본문 번역 진행중)
 - WO-028-B (partner 페이지) 보류 분리
+
+### 2026-04-17 — v2.14 일본어 품질 개선 + 언어 스위처 + concerns slug
+- 3언어 스위처 (EN/KO/JA) 구현
+- 일본어 품질 개선 6건 해결
+- concerns.name_ja 135개 번역
+- concerns.slug 135개 영문 URL 전환
+- DB: concerns 테이블에 name_ja, slug 컬럼 추가

@@ -3,6 +3,42 @@
 **최종 갱신:** 2026-04-17
 
 
+---
+
+## v2.14 — 일본어 사이트 품질 개선 + 언어 스위처 + concerns 영문 slug (2026-04-17)
+
+### 언어 전환 UI
+- 3언어 스위처 (EN/KO/JA) 구현 — LanguageToggle, NavLinks, NavMobileMenu, Footer
+- 순서: EN / KO / JA (원장님 요청)
+- Footer 클라이언트 컴포넌트 분리 (locale 기반 텍스트: 病院関係者·利用規約·プライバシーポリシー)
+
+### 일본어 품질 개선 (6개 이슈 해결)
+- 클리닉 카드: ClinicListWithFilter ja 대응 — 클리닉명·주소·지역 영어 표시, 지도/経路/もっと見る 일본어
+- 백과사전 안내사항: MedicalDisclaimer 일본어 (ご案内 + 본문 + 情報修正のご依頼)
+- 고민 카드: DB concerns.name_ja 135개 번역 추가, 카드에 일본어명 우선 표시
+- concerns/[slug] 시술카드: name_en 우선, clinicCount 일본어 (件のクリニック)
+- devices/[slug] 클리닉카드: address_en 우선 표시
+- RelatedClinics / DeviceRelatedClinics: title 일본어
+
+### concerns 영문 slug URL
+- DB concerns.slug 컬럼 추가, 135개 영문 slug 자동 생성 (name_en 기반)
+- 전체 링크 name_ko → slug 전환 (concerns, search, treatments, sitemap)
+- concerns/[slug] slug 우선 조회 + name_ko 폴백 (기존 한글 URL 호환)
+- 예: /ja/concerns/눈두덩이살 → /ja/concerns/eyelid-fat
+
+### DB 변경
+- concerns.name_ja 컬럼 추가 + 135개 일본어 번역
+- concerns.slug 컬럼 추가 + 135개 영문 slug 생성
+
+### 커밋 (8건)
+- 4ea281a feat: 언어 전환 UI 3언어 스위처
+- c0f7357 feat: WO-028 Phase 5 sitemap hreflang
+- 6253556 fix: MedicalDisclaimer 일본어, 고민카드 name_ja
+- 85aa119 fix: ClinicListWithFilter/RelatedClinics ja 대응
+- 171e87d fix: concerns/[slug] clinicCount, devices/[slug] 주소 영어
+- 8278c4a fix: concerns/[slug] 시술카드 영어표시
+- 9a1f95e feat: concerns 영문 slug URL 전환
+
 ## v2.13 (2026-04-17)
 ### WO-028: 일본어 사이트 확장 (Phase 1~6 완료)
 - **Phase 1 (i18n 인프라):** routing.ts, middleware.ts, request.ts, layout.tsx에 ja 로케일 추가, messages/ja.json 생성
