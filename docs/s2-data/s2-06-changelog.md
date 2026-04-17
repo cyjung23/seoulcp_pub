@@ -2,6 +2,23 @@
 
 **최종 갱신:** 2026-04-17
 
+
+## v2.13 (2026-04-17)
+### WO-028: 일본어 사이트 확장 (Phase 1~6 완료)
+- **Phase 1 (i18n 인프라):** routing.ts, middleware.ts, request.ts, layout.tsx에 ja 로케일 추가, messages/ja.json 생성
+- **Phase 2 (DB):** standard_treatments.name_ja 120개, concerns.concern_group_ja 13개, encyclopedia 일본어 컬럼 10개 추가
+- **Phase 3 (로케일 로직):** 소비자 페이지 14개 파일 isEn→isJa/isEn/ko 3항 구조 전환, locale 판정 로직 6개 파일 수정
+- **Phase 4 (번역):** 시술명 카타카나 120개, 고민 카테고리 13개, 메인 페이지 UI 텍스트, 섹션 타이틀 일본어 번역
+- **Phase 5 (SEO):** sitemap.xml에 /ja/ hreflang 추가 (ko/en/ja 3개 언어 alternates)
+- **Phase 6 (검증):** /ja 메인, /ja/treatments/botox, sitemap.xml 정상 확인
+- **보류:** WO-028-B partner 페이지 일본어 (9개 파일 120개소, 일본인 파트너 유입 시 진행)
+- **진행중:** encyclopedia 본문 일본어 번역 159항목 (기획2팀)
+
+### 기타 수정
+- treatments 목록 "Coming soon" 버그 수정 (treatments 테이블에 없는 slug 컬럼 select 제거)
+- StandardTreatment 인터페이스에 name_ja 추가 (treatments/page.tsx, surgeries/page.tsx)
+- wiki/page.tsx categoryConfig에 labelJa 추가, select에 title_ja/summary_ja 추가
+
 ## v2.12 (2026-04-17) — 일본어 사이트 인프라 + 데이터 (WO-028 Phase 1,2,4)
 
 - i18n 인프라: routing.ts, middleware.ts, request.ts, layout.tsx에 ja 로케일 추가

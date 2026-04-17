@@ -10,7 +10,7 @@
 
 ## 최신 버전
 
-**v2.12** (2026-04-17) — 일본어 사이트 인프라 + 데이터 (WO-028 Phase 1,2,4)
+**v2.13** (2026-04-17) — 일본어 사이트 인프라 + 데이터 (WO-028 Phase 1,2,4)
 - i18n 인프라 ja 로케일 추가, messages/ja.json 생성
 - standard_treatments name_ja 120개, concerns concern_group_ja 13개 입력
 - /ja/ 경로 접속 가능 (콘텐츠 일본어 표시는 Phase 3 이후)
