@@ -37,6 +37,7 @@
     │   │       ├── login/page.tsx                    ← 뷰티회원 로그인
     │   │       ├── reset-password/page.tsx           ← 비밀번호 재설정
     │   │       └── update-password/page.tsx          ← 비밀번호 변경
+    │   │       └── mypage/page.tsx                  ← 뷰티회원 마이페이지
     │   │           ├── page.tsx                      ← 관리자 패널 (가입 승인/거절/정지)
     │   │           └── submissions/page.tsx          ← 수정 요청 검토
     │   ├── api/
@@ -53,6 +54,7 @@
     │   │       ├── login/page.tsx                    ← 뷰티회원 로그인
     │   │       ├── reset-password/page.tsx           ← 비밀번호 재설정
     │   │       └── update-password/page.tsx          ← 비밀번호 변경
+    │   │       └── mypage/page.tsx                  ← 뷰티회원 마이페이지
     │   │           ├── accounts/route.ts             ← 가입 승인/거절/정지 API
     │   │           └── submissions/route.ts          ← 수정요청 검토/승인/거절 API
     │   ├── sitemap.ts                                ← 동적 sitemap (3,131+ URLs)

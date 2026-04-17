@@ -2,7 +2,7 @@
 
 **최종 갱신:** 2026-04-17
 
-## v2.9 (2026-04-17) — 뷰티회원제 Phase 1+2
+## v2.9 (2026-04-17) — 뷰티회원제 Phase 1+2+3
 - beauty_accounts 테이블 생성 (user_id, nickname, preferred_language, RLS)
 - user_picks 테이블 생성 (target_type TEXT, target_id TEXT, Optimistic Update)
 - 뷰티회원 가입 (/beauty/signup), 로그인 (/beauty/login) 페이지
@@ -12,6 +12,11 @@
 - 클리닉 상세, 시술 상세, 백과사전 상세 페이지에 Pick 버튼 적용
 - 비로그인 시 Pick 클릭 → 로그인 페이지 안내
 - 뷰티회원 테스트 계정: cyjung23@gmail.com (beauty)
+- 마이페이지 (/beauty/mypage): My Picks 탭(병원/시술/백과사전), 프로필 수정, 비밀번호 변경, 회원 탈퇴
+- API routes: /api/beauty/account (GET/PATCH/DELETE), /api/picks/name (Pick 항목 이름 조회)
+- AuthNav 컴포넌트: 네비게이션에 로그인 상태 표시 (비로그인: Log In/Sign Up, 로그인: 닉네임/Log Out)
+- 데스크톱/모바일 네비게이션 모두 적용
+- 로그인 후 페이지 새로고침으로 AuthNav 즉시 갱신
 
 ## v2.8 (2026-04-16) — 병원 파트너 회원제 Phase 2
 - 관리자 패널: 가입 승인/거절/정지 기능 (/partner/admin)
