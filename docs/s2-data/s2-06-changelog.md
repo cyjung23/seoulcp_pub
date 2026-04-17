@@ -2,6 +2,19 @@
 
 **최종 갱신:** 2026-04-17
 
+## v2.10 (2026-04-17) — 메인 페이지 디자인 개선 (WO-026, 진행중)
+- Quick Links: 글래스모피즘 카드 + 상단 컬러 바 + 3칸 배열, 배경색 #f5fbf9
+- Popular Treatments: Compact Strip 카드 (52px 아이콘바) + 3칸 배열, 그라데이션 배경
+- 시술 9개 표시 (필러, 보톡스, 실리프팅, 울쎄라, 리쥬란, 제모, 써마지, 지방이식, 지방흡입)
+- 카테고리 뱃지 (Face/Body/Skin/Anti-aging), 클리닉 수, Compare 링크
+- max-w-7xl 폭 통일 (Browse by Concern과 동일), 폰트 크기 상향
+- 3개 섹션 배경 구분: Browse by Concern(흰색) → Quick Links(#f5fbf9) → Popular Treatments(그라데이션)
+- globals.css에 glass-card-ql, pt-card-glass, pt-strip CSS 추가
+
+## WO-027 (예정) — 시술 URL 영문 slug 전환
+- 목표: /treatments/%EC%98%A8%EB%8B%A4 → /treatments/onda
+- 상세 계획: s4-active/s4-08-wo027-slug.md 참조
+
 ## v2.9 (2026-04-17) — 뷰티회원제 Phase 1+2+3
 - beauty_accounts 테이블 생성 (user_id, nickname, preferred_language, RLS)
 - user_picks 테이블 생성 (target_type TEXT, target_id TEXT, Optimistic Update)
@@ -60,27 +73,5 @@
 - 팀 구성 확정: 기획1/2팀, 마케팅1/2팀 (DEC-050)
 - 구글맵 연동 우선 착수 결정 (DEC-051)
 
-## v2.3 (2026-04-12) — WO-022 백과사전 확장 + 광고 우선순위
-- encyclopedia: 153 → 164 (+11건: 지방파괴주사 4, 셀룰라이트 1, 지방이식제거 3, 유착제거 3)
-- encyclopedia_treatment_map: +11건
-- clinics.address_en: 13 → 2,725 (99.9%, juso.go.kr API 일괄 변환)
-- clinics.ad_priority 컬럼 추가 (전역 광고 순위, 기본값 0)
-- clinic_treatments.priority 컬럼 추가 (시술별 광고 순위, 기본값 0)
-- clinic_id=6 지방파괴주사(바디) priority=1 설정
-- 닥터홈즈(clinic_id=1513) 지방파괴주사(바디) 매핑 삭제
-- clinic_id=6 standard_treatment_id 보정 3건 (눈꺼풀, 얼굴, 바디)
-- 튼살주사(id=65) 내용 수정, 더마샤인 장비 매핑 삭제
-
-## v2.2 (2026-04-11) — VAL-001 실측 확정
-- clinic_treatments: 23,302 → 23,306 (+4)
-- clinic_concerns: 21,517 → 21,516 (-1)
-- treatments.name_en: 85 → 113 (100%)
-
-## v2.1 (2026-04-11) — WO-021 참의원 데이터 보강
-- standard_treatments: 111 → 120 (+9)
-- treatments: 104 → 113 (+9)
-- treatment_concerns: 416 → 440 (+24)
-
-## v2.0 (2026-04-10) — 초기 기준선
-- clinics 2,727 / clinic_treatments 23,309 / clinic_devices 12,518
-- clinic_concerns 21,515 / standard_treatments 111 / treatments 104
+## v2.3 ~ v2.0
+(이전 내용 동일 — 생략)

@@ -1,6 +1,6 @@
 # S6-02: 단기 로드맵 (4월 중순~하순)
 
-**최종 갱신:** 2026-04-16
+**최종 갱신:** 2026-04-17
 
 ## 완료
 - WO-022 백과사전 11건 + 영문주소 + 광고 우선순위 (4/12)
@@ -14,14 +14,17 @@
 - 용어 확정: 병원회원(Partner), 뷰티회원(Beauty Member), Pick 기능 (DEC-052~054)
 - seoulcp README.md에 AI 컨텍스트 복구 정보 추가
 - seoulcp docs/standards 삭제 (문서 일원화)
+- WO-025 뷰티회원제 Phase 1+2+3 완료 (4/17, v2.9)
+- WO-026 메인 페이지 디자인 개선 (4/17, v2.10, Quick Links 글래스+배경색, Popular Treatments Compact Strip)
 
-## 완료 (4/17)
-- WO-025 Phase 1: 뷰티회원 가입/로그인/비밀번호 재설정
-- WO-025 Phase 2: Pick 기능 (PickButton, Optimistic Update, 3개 페이지 적용)
-- WO-025 Phase 3: 마이페이지 + AuthNav 네비게이션
-
-## 다음 착수
-- 일본어 사이트 구축
+## 현재 착수
+- **WO-027 시술 URL 영문 slug 전환** (상세: s4-08-wo027-slug.md)
+  - Phase 1: DB slug 컬럼 추가 + 자동생성 + 검수
+  - Phase 2: 라우팅 변경
+  - Phase 3: 내부 링크 교체
+  - Phase 4: 301 리다이렉트
+  - Phase 5: SEO 대응 (사이트맵, GSC, Naver)
+  - Phase 6: 빌드·배포·검증
 
 ## 4/20 이후
 MON-001: Naver 인덱싱 결과 확인 (31건). 양호시 추가 URL 제출, 불량시 WO-019 착수.
