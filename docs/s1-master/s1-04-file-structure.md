@@ -20,6 +20,10 @@
     │   │   ├── terms/page.tsx                        ← 이용약관 (v2.8)
     │   │   ├── privacy/page.tsx                      ← 개인정보처리방침 (v2.8)
     │   │   └── partner/                              ← 병원 파트너 회원제 (v2.7~v2.8)
+    │   │       └── beauty/
+    │   │           └── register/route.ts             ← 뷰티회원 가입 API
+    │   │       └── picks/
+    │   │           └── route.ts                      ← Pick API (GET/POST)
     │   │       ├── signup/page.tsx                   ← 회원가입
     │   │       ├── login/page.tsx                    ← 로그인
     │   │       ├── reset-password/page.tsx           ← 비밀번호 재설정
@@ -28,13 +32,27 @@
     │   │       ├── edit-clinic/page.tsx              ← 병원 정보 수정 폼
     │   │       ├── edit-treatments/page.tsx          ← 시술 정보 수정/추가 폼
     │   │       └── admin/
+    │   │   └── beauty/                              ← 뷰티회원제 (v2.9)
+    │   │       ├── signup/page.tsx                   ← 뷰티회원 가입
+    │   │       ├── login/page.tsx                    ← 뷰티회원 로그인
+    │   │       ├── reset-password/page.tsx           ← 비밀번호 재설정
+    │   │       └── update-password/page.tsx          ← 비밀번호 변경
     │   │           ├── page.tsx                      ← 관리자 패널 (가입 승인/거절/정지)
     │   │           └── submissions/page.tsx          ← 수정 요청 검토
     │   ├── api/
     │   │   └── partner/
+    │   │       └── beauty/
+    │   │           └── register/route.ts             ← 뷰티회원 가입 API
+    │   │       └── picks/
+    │   │           └── route.ts                      ← Pick API (GET/POST)
     │   │       ├── register/route.ts                 ← 회원가입 API (service_role)
     │   │       ├── submission/route.ts               ← 수정요청 제출 API
     │   │       └── admin/
+    │   │   └── beauty/                              ← 뷰티회원제 (v2.9)
+    │   │       ├── signup/page.tsx                   ← 뷰티회원 가입
+    │   │       ├── login/page.tsx                    ← 뷰티회원 로그인
+    │   │       ├── reset-password/page.tsx           ← 비밀번호 재설정
+    │   │       └── update-password/page.tsx          ← 비밀번호 변경
     │   │           ├── accounts/route.ts             ← 가입 승인/거절/정지 API
     │   │           └── submissions/route.ts          ← 수정요청 검토/승인/거절 API
     │   ├── sitemap.ts                                ← 동적 sitemap (3,131+ URLs)

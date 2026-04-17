@@ -15,10 +15,12 @@
 - seoulcp README.md에 AI 컨텍스트 복구 정보 추가
 - seoulcp docs/standards 삭제 (문서 일원화)
 
-## 다음 착수 (4/17~)
-- WO-025 뷰티회원제 Phase 1: 인프라 + 가입/로그인
-- WO-025 뷰티회원제 Phase 2: Pick 기능
-- WO-025 뷰티회원제 Phase 3: 마이페이지
+## 완료 (4/17)
+- WO-025 Phase 1: 뷰티회원 가입/로그인/비밀번호 재설정
+- WO-025 Phase 2: Pick 기능 (PickButton, Optimistic Update, 3개 페이지 적용)
+
+## 다음 착수
+- WO-025 Phase 3: 뷰티회원 마이페이지
 
 ## 4/20 이후
 MON-001: Naver 인덱싱 결과 확인 (31건). 양호시 추가 URL 제출, 불량시 WO-019 착수.

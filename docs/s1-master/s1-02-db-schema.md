@@ -50,3 +50,12 @@ id (UUID), clinic_id (FK), submitted_by (FK → auth.users), type (clinic_info |
 1. 경로1: clinic_treatments.treatment_id → treatments 테이블 조인
 2. 경로2: clinic_treatments.standard_treatment_id → standard_treatments 직접 조회
 3. 경로3: clinic_treatments.treatment_name 텍스트 폴백 (두 ID 모두 NULL인 경우)
+
+### beauty_accounts (신규 v2.9)
+id (UUID), user_id (FK → auth.users, UNIQUE), nickname, preferred_language (ko/en/ja), created_at, updated_at
+- RLS 정책: 자기 계정 조회/수정, 가입 등록, 관리자 조회/수정/삭제
+
+### user_picks (신규 v2.9)
+id (UUID), user_id (FK → auth.users), target_type (TEXT: clinic/treatment/encyclopedia), target_id (TEXT), created_at
+- UNIQUE (user_id, target_type, target_id)
+- RLS 정책: 자기 Pick 조회/등록/삭제, 관리자 조회

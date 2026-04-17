@@ -1,6 +1,17 @@
 # S2-06: 변경 이력
 
-**최종 갱신:** 2026-04-16
+**최종 갱신:** 2026-04-17
+
+## v2.9 (2026-04-17) — 뷰티회원제 Phase 1+2
+- beauty_accounts 테이블 생성 (user_id, nickname, preferred_language, RLS)
+- user_picks 테이블 생성 (target_type TEXT, target_id TEXT, Optimistic Update)
+- 뷰티회원 가입 (/beauty/signup), 로그인 (/beauty/login) 페이지
+- 비밀번호 재설정 (/beauty/reset-password, /beauty/update-password)
+- API route: /api/beauty/register (service_role), /api/picks (GET/POST 토글)
+- PickButton 공통 컴포넌트 (Optimistic Update, 클릭 즉시 UI 반영)
+- 클리닉 상세, 시술 상세, 백과사전 상세 페이지에 Pick 버튼 적용
+- 비로그인 시 Pick 클릭 → 로그인 페이지 안내
+- 뷰티회원 테스트 계정: cyjung23@gmail.com (beauty)
 
 ## v2.8 (2026-04-16) — 병원 파트너 회원제 Phase 2
 - 관리자 패널: 가입 승인/거절/정지 기능 (/partner/admin)
