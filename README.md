@@ -5,17 +5,20 @@
 - 서비스: https://seoulcp.com
 - 기술스택: Next.js 16, Supabase, Vercel, Cloudflare
 - 타겟: 한국 미용시술에 관심 있는 외국인
+- 지원 언어: 한국어, English, 日本語, 中文(简体)
 
 ---
 
 ## 최신 버전
 
-**v2.14** (2026-04-17) — 일본어 사이트 인프라 + 데이터 (WO-028 Phase 1,2,4)
-- i18n 인프라 ja 로케일 추가, messages/ja.json 생성
-- standard_treatments name_ja 120개, concerns concern_group_ja 13개 입력
-- /ja/ 경로 접속 가능 (콘텐츠 일본어 표시는 Phase 3 이후)
+**v2.15** (2026-04-18) — 중국어(zh) 사이트 확장 (WO-029)
+- i18n 인프라: routing.ts, middleware.ts, messages/zh.json, LanguageToggle 4언어(EN/KO/JA/ZH)
+- DB: encyclopedia 10개 zh 컬럼, concerns name_zh 135, standard_treatments name_zh 120
+- 18개 페이지 isZh 분기, wiki/[slug] 하위 컴포넌트 3개 zh 적용
+- 번역: 414항목 기본 + 159항목 × 7상세필드 전량 완료
+- SEO: sitemap /zh/ hreflang, zh_CN locale 메타
 
-이전: v2.11 slug 전환 (WO-027), v2.10 메인 디자인 (WO-026), v2.9 뷰티회원제 (WO-025)
+이전: v2.14 일본어 UI + 품질개선 (WO-028), v2.11 slug 전환 (WO-027), v2.10 메인 디자인 (WO-026), v2.9 뷰티회원제 (WO-025)
 
 상세: [docs/s2-data/s2-06-changelog.md](docs/s2-data/s2-06-changelog.md)
 
@@ -25,7 +28,8 @@
 
 | 작업 ID | 작업명 | 상태 |
 |---------|--------|------|
-| WO-028 | 일본어 사이트 확장 | 🔧 진행중 (Phase 1,2,4 완료) |
+| WO-029 | 중국어(zh) 사이트 확장 | ✅ 완료 (v2.15) |
+| WO-028 | 일본어 사이트 확장 | ✅ 완료 (v2.13~v2.14) |
 | WO-027 | 시술 URL 영문 slug 전환 | ✅ 완료 (v2.11) |
 | WO-026 | 메인 페이지 디자인 개선 | ✅ 완료 (v2.10) |
 | WO-025 | 뷰티회원제 Phase 1+2+3 | ✅ 완료 (v2.9) |
@@ -33,7 +37,6 @@
 | WO-023 | 구글맵 연동 | ✅ 완료 (v2.5) |
 | MON-001 | Naver 인덱싱 확인 | ⏳ 대기 (4/20 이후) |
 | MON-002 | GEO 효과 확인 | ⏳ 대기 (4/24 이후) |
-| 일본어 사이트 | 다국어 확장 | 📋 계획 (즉시 착수 가능) |
 | WO-018 | unmatched 재매칭 | 🔒 보류 |
 | WO-017-v2 | 아이콘 재진행 | 🔒 보류 |
 | WO-019 | Naver body 인덱싱 | 🔒 보류 |
@@ -45,11 +48,10 @@
 
 ## 다음 작업 우선순위
 
-1. **WO-028 Phase 3** — 일본어 페이지 로케일 로직 변경
-2. MON-001 — Naver 인덱싱 확인 (4/20 이후)
-3. MON-002 — GEO 효과 확인 (4/24 이후)
+1. MON-001 — Naver 인덱싱 확인 (4/20~)
+2. MON-002 — GEO 효과 확인 (4/24~)
+3. WO-028-B — Partner 일본어 번역
 4. WO-018 — unmatched 재매칭
-5. WO-017-v2 — 아이콘 디자인 교체
 
 상세: [docs/s4-active/s4-05-priority.md](docs/s4-active/s4-05-priority.md)
 
@@ -59,6 +61,7 @@
 
 | 날짜 | 내용 |
 |------|------|
+| 04-18 | WO-029 중국어(zh) 사이트 확장 완료 (v2.15) |
 | 04-17 | WO-025 뷰티회원제, WO-026 메인 디자인, WO-027 slug 전환, WO-028 일본어 Phase 1,2,4 완료 |
 | 04-16 | WO-024 병원 파트너 회원제 완료 |
 | 04-15 | WO-023 구글맵 연동 완료 |
@@ -82,4 +85,4 @@
 
 ---
 
-*최종 갱신: 2026-04-17*
+*최종 갱신: 2026-04-18*

@@ -1,6 +1,22 @@
 # S2-06: 버전별 변경 사항
 
-**최종 갱신:** 2026-04-17
+**최종 갱신:** 2026-04-18
+
+---
+
+## v2.15 중국어(zh) 사이트 확장 (2026-04-18)
+
+### WO-029: 중국어 사이트 확장 (Phase 1~6 전량 완료)
+
+- **Phase 1 (i18n 인프라):** routing.ts, middleware.ts에 zh 로케일 추가, messages/zh.json 생성, LanguageToggle EN/KO/JA/ZH 4언어 스위처, NavLinks·NavMobileMenu zh 메뉴 라벨, Footer·MedicalDisclaimer zh 텍스트
+- **Phase 2 (DB):** encyclopedia 10개 zh 컬럼(title_zh, summary_zh, overview_zh + 상세 7필드), concerns name_zh, standard_treatments name_zh 추가
+- **Phase 3 (페이지 적용):** 18개 페이지 isZh 분기, 11개 페이지 텍스트 분기, wiki/[slug] 하위 컴포넌트 3개(RelatedClinics, DeviceRelatedClinics, DeviceRelatedTreatments) zh 적용
+- **Phase 4 (번역):** standard_treatments 120개 name_zh, concerns 135개 name_zh, encyclopedia 159개 title_zh/summary_zh/overview_zh, encyclopedia 159개 × 7상세필드(mechanism_zh, effects_zh, duration_zh, recovery_zh, side_effects_zh, price_range_zh, target_audience_zh) — 기획2팀 협업, 전량 완료
+- **Phase 5 (SEO):** sitemap.ts /zh/ hreflang 추가, layout.tsx zh_CN locale 메타
+- **Phase 6 (검증):** 3차 품질개선, /zh/wiki·concerns·treatments 전 페이지 중국어 표시 확인 완료
+- **번역 현황:** 414항목 기본 + 1,113필드 상세 = 전량 완료
+- **폴백 순서:** _zh → _en → ko (번역 없으면 영어, 영어도 없으면 한국어)
+- **주요 커밋:** 78d9fc2(Phase 1), b9379bf(Phase 2-3-5), f9afb31(품질개선 1차), de60721(Phase 4-2)
 
 
 ---
