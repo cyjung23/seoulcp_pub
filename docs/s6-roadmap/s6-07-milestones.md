@@ -18,6 +18,13 @@
 | 2026-05월 | WO-028-B Partner 일본어, WO-018(재매칭) 또는 WO-019(Naver 해결) |
 
 
+
+### 2026-04-18 (추가) — WO-029-QA 중국어 품질개선 완료
+- 메인페이지 고민카드 스타일 복원 (isZh → CATEGORY_STYLES_EN)
+- 검색에 encyclopedia 테이블 추가 + 컬럼명 수정
+- 클리닉 상세: 기본정보 헤딩 버그 수정, 주소/specialties isZh, 영업시간 다국어 변환
+- 검색 결과 UI 통일 (SectionHeader isZh, 백과사전 카드)
+
 ### 2026-04-18 — v2.15 중국어(zh) 사이트 확장
 - WO-029 Phase 1~6 전량 완료
 - i18n 인프라(routing, middleware, 4언어 스위처), DB 12개 컬럼 추가

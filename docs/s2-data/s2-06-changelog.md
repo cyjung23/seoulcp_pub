@@ -4,6 +4,35 @@
 
 ---
 
+
+## v2.16 (2026-04-18) — WO-029 중국어 품질개선 7~8차
+
+### 메인페이지
+- 고민카드 스타일 복원: `styles` 변수에 `isZh` 분기 추가 (zh → CATEGORY_STYLES_EN)
+- 서브타이틀 중국어 추가
+
+### 검색 (search/page.tsx)
+- encyclopedia 테이블 검색 추가 (title_zh, title_ko, title_en, title_ja)
+- concerns name_zh 검색 조건 추가
+- encyclopedia 컬럼명 수정 (summary_ko → summary)
+- SectionHeader isZh 카운트 표시 ("条")
+- 백과사전 검색 카드 스타일 통일 (grid 3열, 밝은 배경, 보라색 hover)
+- totalCount 중국어 표시 ("共N条结果")
+
+### 클리닉 상세 (clinics/[id]/page.tsx)
+- 기본정보 헤딩 버그 수정 (isZh 분기 중복 제거)
+- 주소 isZh 분기 추가 (영문 fallback)
+- specialties isZh 분기 추가
+- 영업시간 요일 다국어 변환 함수 `translateHours()` 추가 (zh/ja/en)
+- 영업시간 라벨 다국어 추가 ("营业时间:" / "営業時間:" / "Hours:")
+
+### 커밋
+- 1f433a9 메인페이지 고민카드 스타일 복원
+- 05850ef 검색 zh 지원 (name_zh + encyclopedia)
+- 2098a96 clinics 기본정보 헤딩/주소/specialties isZh
+- 565055d 영업시간 요일 다국어 변환
+- 검색 encyclopedia 컬럼명 수정 + 카드 UI 개선
+
 ## v2.15 중국어(zh) 사이트 확장 (2026-04-18)
 
 ### WO-029: 중국어 사이트 확장 (Phase 1~6 전량 완료)

@@ -9,7 +9,7 @@
 5. ✅ concerns 영문 slug URL 전환 (135개)
 6. ✅ concerns.name_ja 135개 번역 DB 반영
 7. ✅ GSC/Naver sitemap 재제출
-8. ✅ WO-029 중국어(zh) 사이트 확장 (v2.15) — Phase 1~6 전량 완료
+8. ✅ WO-029 + WO-029-QA (품질개선 7~8차 완료) 중국어(zh) 사이트 확장 (v2.15) — Phase 1~6 전량 완료
 
 ## 대기
 9. MON-001 Naver 인덱싱 확인 (4/20~)
