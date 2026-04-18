@@ -5,6 +5,42 @@
 ---
 
 
+
+## v2.17 (2026-04-18) — WO-029 hreflang HTML + 검색/클리닉 최종 수정
+
+### SEO — HTML hreflang 태그 추가
+- layout.tsx에 alternates 메타데이터 추가 (canonical + 4개 언어 + x-default)
+- 9개 페이지 일괄 적용: layout, page, wiki, wiki/[slug], clinics/[id], treatments, treatments/[slug], concerns, concerns/[slug]
+- Google Search Console 라이브 URL 테스트로 hreflang 6개 태그 인식 확인
+
+### 검색 (search/page.tsx)
+- encyclopedia 테이블 검색 추가 (title_zh/ko/en/ja 검색)
+- encyclopedia 컬럼명 수정 (summary_ko → summary)
+- 백과사전 검색 카드 UI 통일 (grid 3열, 밝은 배경, 보라색 hover)
+- SectionHeader에 isZh 카운트 표시 추가 ("条")
+- totalCount 중국어 표시 ("共N条结果")
+
+### 클리닉 상세 (clinics/[id]/page.tsx)
+- 기본정보 헤딩 버그 수정 (isZh 분기 중복 제거)
+- 주소/specialties isZh 분기 추가
+- 영업시간 요일 다국어 변환 함수 translateHours() 추가 (zh/ja/en)
+
+### 메인페이지 (page.tsx)
+- 고민카드 styles 변수에 isZh 분기 추가 (아이콘/스타일 복원)
+- 서브타이틀 중국어 추가
+
+### 인덱싱 요청
+- Google Search Console: sitemap.xml 재제출, /ko/ /ja/ /zh/ 색인 생성 요청
+- Naver Search Advisor: sitemap.xml 재제출, /ko/ /ja/ /zh/ 웹 페이지 수집 요청
+
+### 커밋
+- 1f433a9 메인페이지 고민카드 스타일 복원
+- 05850ef 검색 zh 지원 (name_zh + encyclopedia)
+- 2098a96 clinics 기본정보/주소/specialties isZh
+- 565055d 영업시간 요일 다국어 변환
+- 686746b HTML head hreflang alternates 추가
+- 전체 페이지 hreflang 4개 언어 + x-default 일괄 적용
+
 ## v2.16 (2026-04-18) — WO-029 중국어 품질개선 7~8차
 
 ### 메인페이지

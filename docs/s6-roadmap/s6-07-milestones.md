@@ -19,6 +19,15 @@
 
 
 
+
+### 2026-04-18 (v2.17) — HTML hreflang + 검색/클리닉 최종 수정 + 인덱싱 요청
+- 9개 페이지에 HTML <head> hreflang alternates 추가 (ko/en/ja/zh/x-default)
+- Google Search Console 라이브 URL 테스트로 6개 태그 인식 확인
+- encyclopedia 검색 추가 + 컬럼명 수정 + 카드 UI 통일
+- 클리닉 영업시간 요일 다국어 변환 (translateHours)
+- 메인페이지 고민카드 스타일 복원
+- GSC/Naver sitemap 재제출 + /ko/ /ja/ /zh/ 인덱싱 요청 완료
+
 ### 2026-04-18 (추가) — WO-029-QA 중국어 품질개선 완료
 - 메인페이지 고민카드 스타일 복원 (isZh → CATEGORY_STYLES_EN)
 - 검색에 encyclopedia 테이블 추가 + 컬럼명 수정
