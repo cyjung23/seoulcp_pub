@@ -14,7 +14,7 @@
 9. ✅ SEO-003 Bing Webmaster Tools 등록 (cclinic.kr + seoulcp.com, GSC import, sitemap 제출)
 
 ## 대기
-10. MON-001 Naver 인덱싱 확인 (4/20~)
+10. MON-001 Naver 인덱싱 확인 — 1차 완료 (4/19), 2차 4/24
 11. MON-002 GEO 영향 분석 (4/24~)
 
 ## 보류
