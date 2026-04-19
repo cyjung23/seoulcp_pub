@@ -1,9 +1,11 @@
 # 작업 현황 요약 (Summary Table)
-> 최종 업데이트: 2026-04-18
+> 최종 업데이트: 2026-04-19
 
 | ID | 작업명 | 상태 | 비고 |
 |----|--------|------|------|
 | WO-029-SEO | HTML hreflang 4언어 + 인덱싱 요청 | ✅ 완료 | 9개 페이지 alternates, GSC/Naver 색인 요청 |
+| SEO-003 | Bing Webmaster Tools 등록 (cclinic.kr + seoulcp.com) | ✅ 완료 | GSC import, sitemap 제출 |
+| SEO-004 | Baidu 站长平台 등록 | 🔒 보류 | 해외 등록 일시 중단, 재개 시 진행 |
 | WO-029-QA | 중국어 품질개선 7~8차 (메인·검색·클리닉) | ✅ 완료 | 고민카드 스타일 복원, encyclopedia 검색, 영업시간 다국어 |
 | WO-029 | 중국어(zh) 사이트 확장 Phase 1~6 | ✅ 완료 | v2.15, 414항목+1,113필드 번역 전량 |
 | WO-025 | Beauty Member Phase 1~3 | ✅ 완료 | — |

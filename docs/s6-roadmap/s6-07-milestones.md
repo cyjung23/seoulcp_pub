@@ -1,6 +1,6 @@
 # S6-07: 마일스톤 타임라인
 
-**최종 갱신:** 2026-04-18
+**최종 갱신:** 2026-04-19
 
 | 날짜 | 마일스톤 |
 |------|---------|
@@ -10,6 +10,7 @@
 | 2026-04-14 | DOC-001 완료, Claude Code 설치, 팀 구성 확정 (DEC-050) |
 | 2026-04-15 | WO-023 구글맵 연동 완료 (좌표 2,725건) |
 | 2026-04-16 | WO-024 병원 파트너 회원제 완료 (v2.7+v2.8), 뷰티회원제 계획 확정 (DEC-052~054) |
+| 2026-04-19 | SEO-003 Bing Webmaster Tools 등록 완료 (cclinic.kr + seoulcp.com), Baidu 보류 (v2.18) |
 | 2026-04-18 | WO-029 중국어(zh) 사이트 확장 완료 (v2.15), Phase 1~6 전량, 414항목+1,113필드 번역, 4언어 지원 체계 구축 |
 | 2026-04-17 | WO-025 뷰티회원제 완료 (v2.9), WO-026 메인 디자인 개선 (v2.10), WO-027 slug 전환 완료 (v2.11), WO-028 일본어 Phase 1,2,4 완료 (v2.12) |
 | 2026-04-20 | MON-001 Naver 인덱싱 1차 확인 |
@@ -19,6 +20,13 @@
 
 
 
+
+### 2026-04-19 (v2.18) — Bing Webmaster Tools 등록 + Baidu 보류
+- Bing Webmaster Tools: GSC import로 cclinic.kr + seoulcp.com 동시 등록
+- sitemap.xml 제출 완료 (seoulcp.com 4언어 12,600+ URL, cclinic.kr 영문 포함)
+- 일본 검색엔진 전체 커버 달성 (Google 82% + Yahoo! Japan 9% + Bing 9%)
+- Baidu 站长平台: 해외 이용자 등록 일시 중단, 보류
+- GFW 접속 테스트 통과 (중국 5개 도시: Beijing, Shenzhen, Inner Mongolia, Heilongjiang, Yunnan)
 
 ### 2026-04-18 (v2.17) — HTML hreflang + 검색/클리닉 최종 수정 + 인덱싱 요청
 - 9개 페이지에 HTML <head> hreflang alternates 추가 (ko/en/ja/zh/x-default)

@@ -18,7 +18,7 @@
 - 번역: 414항목 기본 + 159항목 × 7상세필드 전량 완료
 - SEO: sitemap /zh/ hreflang, zh_CN locale 메타
 
-이전: v2.14 일본어 UI + 품질개선 (WO-028), v2.11 slug 전환 (WO-027), v2.10 메인 디자인 (WO-026), v2.9 뷰티회원제 (WO-025)
+이전: v2.17 HTML hreflang + 인덱싱 (WO-029-SEO), v2.15 중국어 확장 (WO-029), v2.14 일본어 UI + 품질개선 (WO-028)
 
 상세: [docs/s2-data/s2-06-changelog.md](docs/s2-data/s2-06-changelog.md)
 
@@ -35,6 +35,8 @@
 | WO-025 | 뷰티회원제 Phase 1+2+3 | ✅ 완료 (v2.9) |
 | WO-024 | 병원 파트너 회원제 Phase 1+2 | ✅ 완료 (v2.8) |
 | WO-023 | 구글맵 연동 | ✅ 완료 (v2.5) |
+| SEO-003 | Bing Webmaster Tools 등록 | ✅ 완료 |
+| SEO-004 | Baidu 站长平台 등록 | 🔒 보류 (해외 등록 중단) |
 | MON-001 | Naver 인덱싱 확인 | ⏳ 대기 (4/20 이후) |
 | MON-002 | GEO 효과 확인 | ⏳ 대기 (4/24 이후) |
 | WO-018 | unmatched 재매칭 | 🔒 보류 |
@@ -51,7 +53,8 @@
 1. MON-001 — Naver 인덱싱 확인 (4/20~)
 2. MON-002 — GEO 효과 확인 (4/24~)
 3. WO-028-B — Partner 일본어 번역
-4. WO-018 — unmatched 재매칭
+4. SEO-004 — Baidu 站长平台 (해외 등록 재개 시)
+5. WO-018 — unmatched 재매칭
 
 상세: [docs/s4-active/s4-05-priority.md](docs/s4-active/s4-05-priority.md)
 
@@ -85,4 +88,4 @@
 
 ---
 
-*최종 갱신: 2026-04-18*
+*최종 갱신: 2026-04-19*

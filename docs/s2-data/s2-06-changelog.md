@@ -1,10 +1,29 @@
 # S2-06: 버전별 변경 사항
 
-**최종 갱신:** 2026-04-18
+**최종 갱신:** 2026-04-19
 
 ---
 
 
+
+## v2.18 (2026-04-19) — Bing Webmaster Tools 등록 + Baidu 보류
+
+### Bing Webmaster Tools
+- Google Search Console import 방식으로 cclinic.kr + seoulcp.com 동시 등록
+- Microsoft 계정 → GSC idcharm23 계정 연동, 별도 사이트 인증 불필요
+- seoulcp.com/sitemap.xml 제출 완료 (ko/en/ja/zh 4개 언어, 12,600+ URL)
+- cclinic.kr/sitemap.xml 제출 완료 (영문사이트 포함)
+- Bing 검색엔진 + Microsoft Copilot + Edge 브라우저 노출 기대
+
+### Baidu 站长平台 (보류)
+- 해외 사용자 등록 페이지(passport.baidu.com/v2/?reg&overseas=1) 일시 중단
+- 재개 시기 미정, 재개 확인 후 등록 진행 예정
+- GFW 테스트 완료: seoulcp.com 중국 5개 도시에서 접속 가능 확인 (Beijing, Shenzhen, Inner Mongolia, Heilongjiang, Yunnan)
+
+### 일본 검색엔진 현황
+- Google Japan 82% + Yahoo! Japan 9% (Google 엔진 사용) → GSC 등록으로 커버
+- Bing Japan 8~9% → Bing Webmaster Tools 등록 완료
+- 일본 검색엔진 3사 전체 커버 완료
 
 ## v2.17 (2026-04-18) — WO-029 hreflang HTML + 검색/클리닉 최종 수정
 
