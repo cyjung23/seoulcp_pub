@@ -6,7 +6,7 @@
 | WO-029-SEO | HTML hreflang 4언어 + 인덱싱 요청 | ✅ 완료 | 9개 페이지 alternates, GSC/Naver 색인 요청 |
 | SEO-003 | Bing Webmaster Tools 등록 (cclinic.kr + seoulcp.com) | ✅ 완료 | GSC import, sitemap 제출 |
 | SEO-004 | Baidu 站长平台 등록 | 🔒 보류 | 해외 등록 일시 중단, 재개 시 진행 |
-| WO-030 | 로고 디자인 확정 | ⏳ 진행중 | 마케팅1팀 담당, 시안 4종 전달 완료, 색상 확정 후 산출물 제작 |
+| WO-030 | 로고 디자인 + 파비콘 적용 | ⏳ 진행중 | 파비콘 SCP 3색 적용 완료, OG이미지 다크 디자인 적용, 로고 산출물 제작 진행중 |
 | WO-029-QA | 중국어 품질개선 7~8차 (메인·검색·클리닉) | ✅ 완료 | 고민카드 스타일 복원, encyclopedia 검색, 영업시간 다국어 |
 | WO-029 | 중국어(zh) 사이트 확장 Phase 1~6 | ✅ 완료 | v2.15, 414항목+1,113필드 번역 전량 |
 | WO-025 | Beauty Member Phase 1~3 | ✅ 완료 | — |

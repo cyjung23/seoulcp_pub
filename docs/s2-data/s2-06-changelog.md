@@ -1,10 +1,28 @@
 # S2-06: 버전별 변경 사항
 
-**최종 갱신:** 2026-04-19
+**최종 갱신:** 2026-04-20
 
 ---
 
 
+
+## v2.19 (2026-04-20) — WO-030 파비콘 교체 + OG이미지 업데이트
+
+### 파비콘 교체
+- 기존 동적 생성(icon.tsx, apple-icon.tsx) 삭제 → 정적 파비콘으로 전환
+- SCP 3색 파비콘 적용: S(#4AE0FF) C(#FF5CAE) P(#A0E85A), 배경 #1E272E
+- 적용 파일: favicon.ico, favicon-16x16.png, favicon-32x32.png, apple-touch-icon.png, android-chrome-192x192.png, android-chrome-512x512.png
+- site.webmanifest 생성: name "Seoul Clinic Pick", short_name "SCP", theme_color/background_color #1E272E
+- layout.tsx에 icons + manifest 메타데이터 추가
+
+### OG이미지 업데이트
+- opengraph-image.tsx: 밝은 배경 → 다크 배경(#1E272E) + SCP 3색 로고 + 태그라인
+- SNS 공유 시 새 브랜드 디자인 반영
+
+### 디자인 리포트
+- 마케팅1팀과 협업: 통합 디자인 리포트 v3 작성 (색상 확정, 파비콘 스펙, 산출물 체크리스트)
+- 로고 색상 확정: 현재 사이트 색상 유지, 다크 배경 단일 전략
+- 파비콘 스펙 확정: SCP 3글자, Black(900), 비율 0.50, 자간 -0.06em
 
 ## v2.18 (2026-04-19) — Bing Webmaster Tools 등록 + Baidu 보류
 
