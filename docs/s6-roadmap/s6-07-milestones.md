@@ -82,3 +82,11 @@
 - concerns.name_ja 135개 번역
 - concerns.slug 135개 영문 URL 전환
 - DB: concerns 테이블에 name_ja, slug 컬럼 추가
+
+### 2026-04-21
+- **SEC-001** 크롤링 방어 적용 완료
+  - robots.txt: 검색엔진 3종 + GEO봇 6종만 허용, 나머지 차단
+  - Rate Limiting: IP당 60 req/min, 초과 시 5분 차단
+  - 악성 봇 21종 즉시 403 차단
+  - 보안 헤더: noarchive, nosniff, DENY iframe
+  - 기존 i18n + concerns 리다이렉트 유지

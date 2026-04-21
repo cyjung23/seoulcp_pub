@@ -275,3 +275,23 @@
 ## v2.3 ~ v2.0
 
 (이전 내용 동일 — 생략)
+
+---
+
+## v2.19 (2026-04-21) — 크롤링 방어 적용
+
+### SEC-001: 크롤링 방어
+
+**robots.txt 강화**
+- 기존: `User-Agent: * → Allow: /` (전체 허용)
+- 변경: 검색엔진 3종(Googlebot, Yeti, Bingbot) + GEO/AI봇 6종(GPTBot, Google-Extended, ChatGPT-User, PerplexityBot, ClaudeBot, Amazonbot)만 허용
+- 나머지 모든 봇 `Disallow: /` 차단
+- `/api/`, `/partner/` 경로는 허용 봇에게도 차단
+
+**Rate Limiting 미들웨어 (src/middleware.ts 통합)**
+- 악성 봇 21종 User-Agent 기반 즉시 403 차단 (AhrefsBot, SemrushBot, MJ12bot, DotBot, Scrapy, python-requests 등)
+- IP당 60 req/min Rate Limit, 초과 시 5분간 429 차단
+- 보안 헤더 추가: X-Robots-Tag: noarchive, X-Content-Type-Options: nosniff, X-Frame-Options: DENY
+- 기존 i18n 라우팅 + concerns 리다이렉트 정상 유지
+
+**커밋**: eb7e50d → 58e88e2
