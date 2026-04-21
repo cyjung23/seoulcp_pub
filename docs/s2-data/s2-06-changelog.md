@@ -295,3 +295,17 @@
 - 기존 i18n 라우팅 + concerns 리다이렉트 정상 유지
 
 **커밋**: eb7e50d → 58e88e2
+
+---
+
+## v2.19 (2026-04-21) — 성능 개선
+
+### PERF-001: wiki 페이지 DB 쿼리 병렬화
+- 순차 실행 8~10회 쿼리를 Promise.all 3개 그룹으로 병렬화
+- 그룹1: treatment_device_map + treatments
+- 그룹2: devices + encyclopedia_device_map
+- 그룹3: clinic_treatments 경로1 + 경로2
+- **커밋**: 7475a0a
+
+### PERF-002: 서버 측 페이지네이션 (대기 등록)
+- 유입량 증가 시 클리닉 목록을 API route로 분리하여 서버 측 페이지네이션 적용 예정

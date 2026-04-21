@@ -90,3 +90,14 @@
   - 악성 봇 21종 즉시 403 차단
   - 보안 헤더: noarchive, nosniff, DENY iframe
   - 기존 i18n + concerns 리다이렉트 유지
+
+### 2026-04-21 (성능 개선)
+- **PERF-001** wiki 페이지 DB 쿼리 병렬화 완료
+  - treatment_device_map + treatments 병렬 조회
+  - devices + encyclopedia_device_map 병렬 조회
+  - clinic_treatments 경로1 + 경로2 병렬 조회
+  - 순차 8~10회 → 병렬 그룹 3개로 축소
+- **PERF-002** 서버 측 페이지네이션 등록 (대기)
+  - 현재: 전체 클리닉 데이터를 클라이언트에 전달 후 20개씩 표시
+  - 개선: API route 분리, 스크롤/버튼 시 서버에서 20개씩 조회
+  - 트리거: 유입량 증가 시 적용 검토
