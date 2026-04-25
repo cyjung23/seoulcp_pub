@@ -4,13 +4,14 @@
 | ID | 작업명 | 상태 | 비고 |
 |----|--------|------|------|
 | SEO-006 | Organization JSON-LD (브랜드 인식 강화) | ✅ 완료 | layout.tsx에 구조화 데이터 추가, commit 0f12fcf |
-| SEO-005 | seoulclinicpick.com → seoulcp.com 301 리다이렉트 | ✅ 완료 | Vercel + 가비아 DNS, Cloudflare 미사용 확인 |
+| SEO-005 | seoulclinicpick.com → seoulcp.com 301 리다이렉트 | ✅ 완료 | Vercel + 가비아 DNS |
 | DX-001 | VS Code CSS 경고 비활성화 | ✅ 완료 | Tailwind v4 @theme 호환, commit e8c6f92 |
 | SEC-001 | 크롤링 방어 (robots.txt + Rate Limiting) | ✅ 완료 | 2026-04-21 |
 | PERF-001 | wiki DB 쿼리 병렬화 (Promise.all) | ✅ 완료 | 2026-04-21 |
+| MON-001 | Naver/Google 인덱싱 확인 | ✅ 2차 완료 | Google 4언어 정상, Naver /ko/ 집중 전략 전환 |
+| MON-002 | GEO 효과 분석 | ✅ 1차 완료 | 6개국 유입, Reddit 포스팅 효과 확인, 2주 후 재확인 |
+| MON-003 | GEO 추세 비교 (2주 후) | 📋 대기 | 5/2 예정 |
 | WO-030 | 로고 디자인 + 파비콘 적용 | ⏳ 진행중 | 파비콘 완료, 로고 산출물 진행중 |
-| MON-001 | Naver 인덱싱 확인 | ⏳ 진행중 | 1차 4/19 완료, 2차 4/24 예정 |
-| MON-002 | GEO 영향 분석 | ⏳ 대기 | 4/24 이후 확인 |
 | PERF-002 | 서버 측 페이지네이션 | 📋 대기 | 유입량 증가 시 검토 |
 | SEO-004 | Baidu 站长平台 등록 | 🔒 보류 | 해외 등록 일시 중단, 재개 시 진행 |
 | WO-028-B | Partner 페이지 일본어 | 🔒 보류 | 9파일 120개소, 일본인 파트너 유입 시 진행 |

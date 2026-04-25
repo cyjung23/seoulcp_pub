@@ -4,7 +4,7 @@
 
 ---
 
-## v2.20 (2026-04-25) — SEO 브랜드 강화 + 도메인 리다이렉트
+## v2.20 (2026-04-25) — SEO 브랜드 강화 + 도메인 리다이렉트 + 모니터링 2차
 
 ### SEO-005: seoulclinicpick.com 301 리다이렉트
 - seoulclinicpick.com 도메인 구매 (가비아)
@@ -24,11 +24,37 @@
 ### DX-001: VS Code CSS 경고 비활성화
 - .vscode/settings.json 생성: css.validate=false, unknownAtRules=ignore
 - Tailwind CSS v4 `@theme inline` 문법에 대한 VS Code 노란색 경고 해소
-- 빌드에는 영향 없음 (에디터 표시 문제)
 - **커밋**: e8c6f92
 
+### MON-001: Naver/Google 인덱싱 2차 확인 (4/25)
+- **Google 인덱싱 (정상)**
+  - /ja/: 인덱싱 확인 (wiki/agnes, wiki/facelift, wiki/rejuran, treatments 등)
+  - /zh/: 인덱싱 확인 (메인, wiki/ellanse, wiki/warts, wiki/juvelook, treatments 등)
+  - /en/: 인덱싱 확인 (treatments, wiki/facelift, treatments/agnes 등)
+  - /ko/: 인덱싱 확인 (clinics 다수 노출)
+  - → Google 4개 언어 모두 정상 인덱싱
+- **Naver 인덱싱**
+  - /ko/: 인덱싱 확인 (site:seoulcp.com 결과 존재)
+  - /ja/: 0건 (미인덱싱)
+  - /zh/: 0건 (미인덱싱)
+  - → Naver는 한국어 콘텐츠 중심 검색엔진, 외국어 페이지 인덱싱 우선순위 극히 낮음
+- **전략 전환**: Naver는 /ko/ 인덱싱에 집중, /ja/·/zh/는 Google/Bing에서 관리
 
-
+### MON-002: GEO 효과 분석 (4/18~4/25)
+- **국가별 사용자 (4/18~4/24, 7일)**
+  - South Korea: 29명 (72.5%), 참여율 90.3%
+  - Japan: 3명, Portugal: 3명, United States: 3명
+  - Canada: 1명, Saudi Arabia: 1명
+  - → 6개국에서 유입 발생, 다국어 SEO 작동 확인
+- **트래픽 채널**
+  - Organic Search: 31세션 (62%), 참여율 90.3% — 핵심 채널
+  - Unassigned: 10세션 (참여 시간 92.4초, 봇/크롤러 혼재 추정)
+  - Direct: 8세션, Referral: 1세션
+- **Reddit 포스팅 효과 (4/24 포스팅, r/KoreaSeoulBeauty 28,121구독자)**
+  - 4/24: 미국 1명 → 4/25: 미국 10명 (신규 9명) — 즉시 유입 효과 확인
+  - 단, 참여율 20%, 주요 이벤트 0건 — Reddit 특성상 탐색 후 이탈 패턴
+- **판단**: 서비스 출시 초기로 트래픽 규모 작음 (일평균 ~7세션), GEO 효과 확정은 이르나 다국어 인덱싱 + 해외 유입 발생은 긍정 신호
+- **다음 확인**: MON-003 (5/2) — 2주 후 동일 데이터 추세 비교
 
 ## v2.19 (2026-04-20) — WO-030 파비콘 교체 + OG이미지 업데이트
 
