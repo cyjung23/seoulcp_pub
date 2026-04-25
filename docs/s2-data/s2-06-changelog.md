@@ -1,8 +1,32 @@
 # S2-06: 버전별 변경 사항
 
-**최종 갱신:** 2026-04-20
+**최종 갱신:** 2026-04-25
 
 ---
+
+## v2.20 (2026-04-25) — SEO 브랜드 강화 + 도메인 리다이렉트
+
+### SEO-005: seoulclinicpick.com 301 리다이렉트
+- seoulclinicpick.com 도메인 구매 (가비아)
+- Vercel 도메인 설정: seoulclinicpick.com + www.seoulclinicpick.com → seoulcp.com 301 리다이렉트
+- 가비아 DNS: A @ → 76.76.21.21 (Vercel), CNAME www → cname.vercel-dns.com
+- 목적: Google 검색에서 "seoul clinic pick" 입력 시 브랜드 인식 강화
+- Cloudflare 미사용 확인 → 기술스택에서 Cloudflare 삭제
+
+### SEO-006: Organization JSON-LD 추가
+- src/app/layout.tsx `<head>`에 JSON-LD 구조화 데이터 삽입
+- @type: Organization, name: "Seoul Clinic Pick"
+- alternateName: ["서울클리닉픽", "SeoulClinicPick", "SCP", "seoulcp"]
+- sameAs: [seoulclinicpick.com, YouTube, Naver 블로그]
+- Google이 "Seoul Clinic Pick"을 브랜드명으로 인식하도록 유도
+- **커밋**: 0f12fcf
+
+### DX-001: VS Code CSS 경고 비활성화
+- .vscode/settings.json 생성: css.validate=false, unknownAtRules=ignore
+- Tailwind CSS v4 `@theme inline` 문법에 대한 VS Code 노란색 경고 해소
+- 빌드에는 영향 없음 (에디터 표시 문제)
+- **커밋**: e8c6f92
+
 
 
 

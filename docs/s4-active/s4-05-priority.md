@@ -1,5 +1,5 @@
 # 우선순위 (Priority)
-> 최종 업데이트: 2026-04-19
+> 최종 업데이트: 2026-04-25
 
 ## 완료
 1. ✅ WO-028 Phase 1~6 일본어 사이트 확장 (v2.13)
@@ -9,22 +9,23 @@
 5. ✅ concerns 영문 slug URL 전환 (135개)
 6. ✅ concerns.name_ja 135개 번역 DB 반영
 7. ✅ GSC/Naver sitemap 재제출
-8. ✅ WO-029 + WO-029-QA + WO-029-SEO (HTML hreflang + 인덱싱 요청 완료) (품질개선 7~8차 완료) 중국어(zh) 사이트 확장 (v2.15) — Phase 1~6 전량 완료
+8. ✅ WO-029 + WO-029-QA + WO-029-SEO 중국어(zh) 사이트 확장 (v2.15) — Phase 1~6 전량 완료
+9. ✅ SEO-003 Bing Webmaster Tools 등록 (cclinic.kr + seoulcp.com)
+10. ✅ SEC-001 크롤링 방어 — robots.txt + Rate Limiting (2026-04-21)
+11. ✅ PERF-001 wiki DB 쿼리 병렬화 — Promise.all (2026-04-21)
+12. ✅ SEO-005 seoulclinicpick.com → seoulcp.com 301 리다이렉트 (2026-04-25)
+13. ✅ SEO-006 Organization JSON-LD — 브랜드 "Seoul Clinic Pick" 구조화 데이터 (2026-04-25)
+14. ✅ DX-001 VS Code CSS 경고 비활성화 — Tailwind v4 호환 (2026-04-25)
 
-9. ✅ SEO-003 Bing Webmaster Tools 등록 (cclinic.kr + seoulcp.com, GSC import, sitemap 제출)
+## 진행중
+15. ⏳ MON-001 Naver 인덱싱 확인 — 1차 완료 (4/19), 2차 4/24
+16. ⏳ MON-002 GEO 영향 분석 (4/24~)
+17. ⏳ WO-030 로고 디자인 확정 (마케팅1팀, 산출물 제작 진행중)
 
 ## 대기
-10. MON-001 Naver 인덱싱 확인 — 1차 완료 (4/19), 2차 4/24
-11. MON-002 GEO 영향 분석 (4/24~)
-
-## 진행중 (마케팅1팀)
-12. ⏳ WO-030 로고 디자인 확정 (시안 4종 전달, 색상 협의 → 산출물 제작 → 사이트 적용)
+18. 📋 PERF-002 서버 측 페이지네이션 — 유입량 증가 시 검토
 
 ## 보류
-13. SEO-004 Baidu 站长平台 등록 (해외 등록 중단, 재개 확인 후 진행)
-14. WO-028-B Partner 페이지 일본어 (9파일 120개소)
-
-| SEC-001 | 크롤링 방어 — robots.txt + Rate Limiting | ✅ 완료 | 2026-04-21 |
-
-| PERF-001 | wiki DB 쿼리 병렬화 (Promise.all) | ✅ 완료 | 2026-04-21 |
-| PERF-002 | 서버 측 페이지네이션 (클리닉 목록) | 📋 대기 | 유입량 증가 시 검토 |
+19. 🔒 SEO-004 Baidu 站长平台 등록 (해외 등록 중단, 재개 확인 후 진행)
+20. 🔒 WO-028-B Partner 페이지 일본어 (9파일 120개소)
+21. 🔒 WO-018 unmatched 재매칭
