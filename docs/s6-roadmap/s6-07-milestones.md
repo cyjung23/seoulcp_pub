@@ -4,7 +4,7 @@
 
 | 날짜 | 마일스톤 |
 |------|---------|
-| 2026-04-25 | SEO-005 도메인 리다이렉트, SEO-006 JSON-LD, DX-001 VS Code, MON-001 2차, MON-002 1차 (v2.20) |
+| 2026-04-25 | SEO-005, SEO-006, DX-001, MON-001 2차, MON-002 1차, WO-031, MKT-001 (v2.20) |
 | 2026-04-24 | Reddit r/KoreaSeoulBeauty 포스팅 (마케팅1팀 협업) |
 | 2026-04-21 | SEC-001 크롤링 방어, PERF-001 wiki 쿼리 병렬화 (v2.19) |
 | 2026-04-20 | WO-030 파비콘 SCP 3색 적용, OG이미지 다크 디자인 (v2.19) |
@@ -22,7 +22,7 @@
 
 ---
 
-### 2026-04-25 (v2.20) — SEO 브랜드 강화 + 모니터링 2차
+### 2026-04-25 (v2.20) — SEO 브랜드 강화 + 모니터링 + 관리자 개선 + 마케팅
 - **SEO-005**: seoulclinicpick.com 301 리다이렉트 (Vercel + 가비아 DNS)
 - **SEO-006**: Organization JSON-LD 추가 (commit 0f12fcf)
 - **DX-001**: VS Code CSS 경고 비활성화 (commit e8c6f92)
@@ -30,7 +30,14 @@
 - **MON-002 1차**: 7일간 6개국 유입 (KR 29, JP 3, PT 3, US 3, CA 1, SA 1)
   - Organic Search 31세션 (참여율 90.3%)
   - Reddit 포스팅 후 미국 1→10명 급증 (4/24→4/25)
-  - GEO 효과 초기 긍정 신호, 5/2 재확인 예정
+- **WO-031**: 관리자 대시보드 pending 건수 뱃지 (commit f0f97d5)
+  - 가입 승인 요청, 수정 요청 건수를 빨간색 깜빡이는 뱃지로 표시
+  - 참의원 병원계정으로 테스트 완료
+- **MKT-001**: 외부 마케팅 포스팅 (마케팅1팀 협업)
+  - Reddit r/KoreaSeoulBeauty (영어, 4/24) — 12시간 내 미국 신규 9명 유입
+  - Medium @seoulclinicpick (영어 + 일본어) — 글로벌 타겟
+  - note.com seoulclinicpick (일본어, 4/25) — 일본 사용자 타겟
+- **Vercel 플랜 확인**: Hobby(무료) 일일 ~1,300~2,100명까지 가능, 현재 일평균 7세션으로 충분
 
 ### 2026-04-24 — Reddit 마케팅
 - r/KoreaSeoulBeauty (28,121 구독자) 서비스 소개 포스팅
