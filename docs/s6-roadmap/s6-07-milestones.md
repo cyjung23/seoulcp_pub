@@ -1,9 +1,10 @@
 # S6-07: 마일스톤 타임라인
 
-**최종 갱신:** 2026-04-25
+**최종 갱신:** 2026-05-01
 
 | 날짜 | 마일스톤 |
 |------|---------|
+| 2026-05-01 | DATA-001, SEO-007, SEO-008, SEO-009, SEO-010, GSC 5xx/404/Soft 404 진단 및 대응 (v2.21) |
 | 2026-04-25 | SEO-005, SEO-006, DX-001, MON-001 2차, MON-002 1차, WO-031, MKT-001 (v2.20) |
 | 2026-04-24 | Reddit r/KoreaSeoulBeauty 포스팅 (마케팅1팀 협업) |
 | 2026-04-21 | SEC-001 크롤링 방어, PERF-001 wiki 쿼리 병렬화 (v2.19) |
@@ -21,6 +22,18 @@
 | 2026-05-02 | MON-003 GEO 추세 비교 (2주 후 재확인) |
 
 ---
+
+### 2026-05-01 (v2.21) — GSC 404/Soft 404 대응 + i18n 정체성 정렬 + 빈 클리닉 noindex
+
+- **진단**: GSC "페이지 색인 생성"에서 404 10건, Soft 404 2건, 5xx 21건 발견
+  - 5xx 21건: Vercel Logs 분석 결과 모두 자연 해소 확인 (URL 검사로 1375 정상 색인 확인)
+  - 403: SEC-001 미들웨어가 Bytespider 등 악성봇 차단 정상 동작
+- **DATA-001**: 클리닉 2225, 2226의 가비아 errdoc URL과 "404 Not Found" description NULL 처리
+- **SEO-007**: CONCERN_SLUG_MAP 오타 수정 (wide-cheekbones-cheeks, commit 22bae85)
+- **SEO-008**: 심술보 → jowl-sagging 슬러그 분리 (의학적 분류: 입가 처짐=marionette-lines, 심술보=jowl-sagging, commit 69c7cf9)
+- **SEO-009**: defaultLocale ko → en 변경 (SCP 해외 사용자 표준 정렬, commit 5ff5212)
+- **SEO-010**: 빈 클리닉 자동 noindex 처리 — 시술·장비 0개 클리닉 787개 영향 (commit 6ee6624)
+- **후속 작업 등록**: WO-033 (middleware → proxy.ts 마이그레이션), WO-034 (GSC 유효성 검사), WO-035 (외부 API 빈 클리닉 보강), WO-037 (changelog 분리)
 
 ### 2026-04-25 (v2.20) — SEO 브랜드 강화 + 모니터링 + 관리자 개선 + 마케팅
 - **SEO-005**: seoulclinicpick.com 301 리다이렉트 (Vercel + 가비아 DNS)

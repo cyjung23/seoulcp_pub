@@ -1,6 +1,70 @@
 # S2-06: 버전별 변경 사항
 
-**최종 갱신:** 2026-04-25
+**최종 갱신:** 2026-05-01
+
+---
+
+## v2.21 (2026-05-01) — GSC 404/Soft 404 대응 + i18n 정체성 정렬 + 빈 클리닉 noindex
+
+### 진단 (오늘 작업의 시작점)
+- GSC "페이지 색인 생성" 점검: 404 10건, Soft 404 2건, 서버 오류(5xx) 21건, 리디렉션 1187건, 크롤링됨-색인 안 됨 115건 확인
+- 5xx 21건: Vercel Logs 분석 결과 모두 일시적 오류로 자연 해소 완료 (URL 검사로 1375 등 정상 색인 확인)
+- 403 응답: Vercel Middleware에서 Bytespider 등 악성봇 차단 정상 동작 (SEC-001)
+- 4/27~4/28 발생한 5xx는 일시적 함수 오류로 추정, 코드 변경 없이 GSC 유효성 검사로 종결 예정
+
+### DATA-001: 클리닉 2225/2226 오염 데이터 정리
+- 윤병일성형외과의원(2225), 강남우태하피부과의원(2226)의 website 필드에 가비아 errdoc URL이 저장되어 있던 문제
+- 크롤링 시점에 클리닉 홈페이지가 이미 죽어있어, 가비아의 404 안내 페이지를 크롤링한 결과가 그대로 DB에 저장됨
+- description 필드에도 "404 Not Found" 텍스트가 들어가 있었음
+- Supabase UPDATE로 두 클리닉의 website, description NULL 처리
+- Soft 404 분류 원인 1차 차단
+
+### SEO-007: CONCERN_SLUG_MAP 오타 수정
+- "넓은 광대/볼살" → "wide-cheekbonescheeks" (오타) → "wide-cheekbones-cheeks" (수정)
+- DB의 정상 slug `wide-cheekbones-cheeks`와 매핑 일치
+- 영향 URL: /ko/concerns/넓은 광대/볼살, /en/concerns/넓은 광대/볼살, /concerns/넓은 광대/볼살 (404 → 정상)
+- **커밋**: 22bae85
+
+### SEO-008: 심술보 → jowl-sagging 슬러그 분리
+- concerns 테이블에 marionette-lines slug가 두 행(id=60 입가 처짐, id=162 심술보)에 중복 존재 → 의미 분리 필요
+- 의학적 분류 결정 (참클리닉 원장 자문):
+  - 입가 처짐 (id=60) = marionette-lines (입가의 깊은 주름)
+  - 심술보 (id=162) = jowl-sagging (턱선 처짐)
+  - mouth-corner-sagging 케이스는 심술보로 통합
+- DB UPDATE: id=162의 slug, name_en, name_ja, name_zh 변경
+  - slug: marionette-lines → jowl-sagging
+  - name_en: Marionette Lines → Jowl Sagging
+  - name_ja: マリオネットライン → ブルドッグライン
+  - name_zh: 木偶纹 → 嘴边肉下垂
+- CONCERN_SLUG_MAP에서 "심술보" 매핑도 jowl-sagging으로 변경
+- **커밋**: 69c7cf9
+
+### SEO-009: defaultLocale ko → en 변경 (SCP 정체성 정렬)
+- src/i18n/routing.ts: defaultLocale "ko" → "en"
+- 사유: SCP는 해외 사용자 대상 플랫폼이며 영어가 표준 페이지 (한국어 페이지는 크롤링 자료가 한글이라 먼저 만든 것)
+- 영향: 브라우저 언어가 ko/en/ja/zh 외인 사용자(예: 프랑스어, 독일어) → 한국어 대신 영어로 fallback
+- 미들웨어 prefix 자동 보정 로직도 함께 추가했으나 Next.js 16 middleware deprecation 영향으로 작동하지 않음 → WO-033으로 이월
+- **커밋**: 5ff5212
+
+### SEO-010: 빈 클리닉 자동 noindex 처리
+- 배경: 2,727개 클리닉 중 787개(약 29%)가 시술·장비 모두 0개 → Soft 404 잠재 위험
+- 원인: 클리닉 홈페이지 크롤링 시 데이터가 부실하거나 형식이 적절하지 않은 케이스 다수
+- 구현: src/app/[locale]/clinics/[id]/page.tsx의 generateMetadata 함수에서 clinic_treatments, clinic_devices count 쿼리(head: true)로 빠르게 확인
+- 둘 다 0이면 `robots: { index: false, follow: false }` 추가 → 검색엔진 자동 제외
+- 정상 클리닉(시술/장비 보유)은 기존 동작 유지 (curl 검증으로 확인)
+- 데이터 보강 시 자동으로 다시 인덱싱 가능 (DB 변경 없음, 코드만 수정)
+- 검증: clinic 2226 → `<meta name="robots" content="noindex, nofollow"/>` 출력 확인, clinic 1375(정상) → robots 메타 없음
+- **커밋**: 6ee6624
+
+### 후속 작업 등록
+- WO-033: middleware.ts → proxy.ts 마이그레이션 (Next.js 16 deprecation 대응) + locale prefix 자동보정 디버깅
+- WO-034: GSC 유효성 검사 트리거 및 모니터링 (5xx/404/Soft 404 정리 확인, 5/2 MON-003과 함께 처리)
+- WO-035: 외부 API 기반 빈 클리닉 데이터 자동 보강 (네이버 플레이스 + 건강보험심사평가원 API 등)
+- WO-037: changelog 분리 + 인수인계 효율화 (옵션 A: 활성/아카이브 분리 + 인덱스 신설 + 자동 롤오버 규칙)
+
+### 자연 정리 항목 (별도 조치 없음)
+- /ja/treatments/시크릿: standard_treatments 테이블에 "시크릿" 관련 데이터 자체가 없어 매핑 불가, 외부 죽은 링크로 추정 → GSC가 시간 지나면 자연 정리
+- locale prefix 누락 URL (/concerns/입가 처짐 등 3건): 미들웨어 자동 보정이 작동 안 했으나, 한국 브라우저 사용자는 next-intl 자동 감지로 정상 페이지 도달, GSC 자연 정리 예상
 
 ---
 

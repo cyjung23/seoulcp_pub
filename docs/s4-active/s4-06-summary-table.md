@@ -1,8 +1,18 @@
 # 작업 현황 요약 (Summary Table)
-> 최종 업데이트: 2026-04-25
+> 최종 업데이트: 2026-05-01
 
 | ID | 작업명 | 상태 | 비고 |
 |----|--------|------|------|
+| SEO-010 | 빈 클리닉 자동 noindex 처리 | ✅ 완료 | 시술·장비 0개 클리닉 787개 영향, commit 6ee6624 |
+| SEO-009 | defaultLocale ko → en 변경 | ✅ 완료 | SCP 정체성 정렬 (해외 사용자 표준), commit 5ff5212 |
+| SEO-008 | 심술보 → jowl-sagging 슬러그 분리 | ✅ 완료 | concerns DB UPDATE + commit 69c7cf9 |
+| SEO-007 | CONCERN_SLUG_MAP 오타 수정 | ✅ 완료 | wide-cheekbones-cheeks, commit 22bae85 |
+| DATA-001 | 클리닉 2225/2226 오염 데이터 정리 | ✅ 완료 | website/description NULL 처리 (가비아 errdoc URL 제거) |
+| MON-003 | GEO 추세 비교 (2주차) | 📋 5/2 예정 | GA4 + GSC 데이터 비교 |
+| WO-033 | middleware → proxy.ts 마이그레이션 | 📋 대기 | Next.js 16 deprecation 대응 + locale prefix 자동보정 |
+| WO-034 | GSC 유효성 검사 트리거 + 모니터링 | 📋 대기 | 5xx/404/Soft 404 정리 확인, MON-003과 함께 진행 |
+| WO-035 | 빈 클리닉 데이터 자동 보강 | 📋 대기 | 네이버 플레이스 + 심평원 API 활용 |
+| WO-037 | changelog 분리 + 인수인계 효율화 | 📋 대기 | 활성/아카이브 분리 + 인덱스 신설 |
 | SEO-006 | Organization JSON-LD (브랜드 인식 강화) | ✅ 완료 | layout.tsx에 구조화 데이터 추가, commit 0f12fcf |
 | SEO-005 | seoulclinicpick.com → seoulcp.com 301 리다이렉트 | ✅ 완료 | Vercel + 가비아 DNS |
 | DX-001 | VS Code CSS 경고 비활성화 | ✅ 완료 | Tailwind v4 @theme 호환, commit e8c6f92 |
