@@ -59,6 +59,26 @@
 - 검증: clinic 2226 → `<meta name="robots" content="noindex, nofollow"/>` 출력 확인, clinic 1375(정상) → robots 메타 없음
 - **커밋**: 6ee6624
 
+### SEO-011: zh.json 번역 누락 수정 (2026-05-02 후속 패치)
+- 발견 경위: Vercel Function Logs에서 MISSING_MESSAGE 에러 3건 발견 (실제 iPhone Safari 사용자 발생, 02:04 UTC)
+  - `Error: MISSING_MESSAGE: home (zh)` 2건
+  - `Error: MISSING_MESSAGE: common.siteName (zh)` 1건
+- 원인: zh.json이 ko/en/ja와 완전히 다른 키 구조를 가지고 있었음
+  - zh.json에만 있던 legacy 키: `disclaimer.*`, `footer.partner/terms/privacy`, `common.loading/showMore/back/relatedClinics` 등
+  - ko/en/ja 표준에 있는 `common.siteName`, `common.siteDescription`, `common.footer`, `common.contact`, `home.title`, `home.description` 모두 누락
+  - generateMetadata에서 zh 페이지 렌더 시 SSR 500 발생
+- 사용처 검증: legacy 키들은 src/ 하위에서 0건 참조 확인 (안전하게 제거 가능)
+- 해결: zh.json을 ko/en/ja와 동일한 3섹션 표준 구조(nav + common + home)로 재작성
+- 검증: 배포 후 iPhone Safari UA로 https://seoulcp.com/zh 접속 → HTTP 200 + `<title>按困扰搜索首尔美容诊所...| Seoul Clinic Pick</title>` 정상 출력
+- **5/1 진단 일부 정정**: GSC 5xx 21건을 "일시적 → 자연 해결"로 결론냈으나, 실제로는 zh 사용자 접속 시 재현되던 버그였음. zh 트래픽이 적어 산발적으로 보였을 뿐. 본 수정으로 근본 원인 제거됨.
+- **커밋**: d3e449a (rebase 후 해시, 원래 b203f33)
+- 백업: /tmp/zh-backup.json (Codespaces 세션 한정)
+
+### 403 응답 점검 (5/2 오전)
+- 10:41~10:49 시간대 403 응답 3건 모두 동일 User-Agent: Bytespider (ByteDance 크롤러)
+- SEC-001 BLOCKED_BOTS 리스트에 의한 정상 차단 — 조치 불필요
+- 일반 사용자 오탐 사례 없음
+
 ### 후속 작업 등록
 - WO-033: middleware.ts → proxy.ts 마이그레이션 (Next.js 16 deprecation 대응) + locale prefix 자동보정 디버깅
 - WO-034: GSC 유효성 검사 트리거 및 모니터링 (5xx/404/Soft 404 정리 확인, 5/2 MON-003과 함께 처리)

@@ -1,8 +1,9 @@
 # 작업 현황 요약 (Summary Table)
-> 최종 업데이트: 2026-05-01
+> 최종 업데이트: 2026-05-02
 
 | ID | 작업명 | 상태 | 비고 |
 |----|--------|------|------|
+| SEO-011 | zh.json 번역 누락 수정 | ✅ 완료 | MISSING_MESSAGE (home/common.siteName) 해결, ko/en/ja 표준 구조로 재작성, commit d3e449a (2026-05-02) |
 | SEO-010 | 빈 클리닉 자동 noindex 처리 | ✅ 완료 | 시술·장비 0개 클리닉 787개 영향, commit 6ee6624 |
 | SEO-009 | defaultLocale ko → en 변경 | ✅ 완료 | SCP 정체성 정렬 (해외 사용자 표준), commit 5ff5212 |
 | SEO-008 | 심술보 → jowl-sagging 슬러그 분리 | ✅ 완료 | concerns DB UPDATE + commit 69c7cf9 |
