@@ -74,6 +74,31 @@
 - **커밋**: d3e449a (rebase 후 해시, 원래 b203f33)
 - 백업: /tmp/zh-backup.json (Codespaces 세션 한정)
 
+### WO-039: 404 처리 통합 — 다국어 not-found + LEGACY_SLUG_MAP + middleware 일원화 (2026-05-07)
+- 발견 경위: GA4 5/6 데이터에서 `404: This page could not be found.` (Next.js 기본 영문 페이지) page_title 다수 발생
+- 진단:
+  - **결함 A** — `next.config.ts`의 `redirects()` 블록이 모든 locale-less URL을 308로 `/ko/`에 강제 (SCP 표준 `defaultLocale=en`과 불일치, 한글 slug 영문 변환 무력화)
+  - **결함 B** — middleware의 concern 한글 → 영문 slug 변환이 SEO-009 자동 리다이렉트 **뒤**에 있어, locale-less 한글 URL은 변환 없이 통과
+  - **결함 C** — 5/1 SEO-007/008로 변경된 구 영문 slug(`wide-cheekbonescheeks`, `mouth-corner-sagging`) 백링크가 무매핑 → 404
+  - **결함 D** — `src/app/[locale]/not-found.tsx` 부재 → 모든 locale에서 Next.js 기본 영문 404 노출 (GA4 page_title의 정체)
+- 해결:
+  - **A**: `next.config.ts`의 `redirects()` 제거, locale-less URL 처리는 middleware로 일원화 (`Accept-Language` 헤더 감지로 ko/en 분기)
+  - **B**: middleware 순서 재정렬 — concern slug 정규화(한글 → 영문 + LEGACY 매핑)를 locale 자동 리다이렉트 **앞**으로 이동
+  - **C**: `src/lib/legacy-slug-map.ts` 신규, `wide-cheekbonescheeks → wide-cheekbones-cheeks`, `mouth-corner-sagging → jowl-sagging` 매핑 (※ `marionette-lines`는 "입가 주름" 정식 slug로 유지)
+  - **D**: `src/app/[locale]/not-found.tsx` 신규 (다국어 title/description, robots noindex, 홈/검색/concerns 링크), `messages/{ko,en,ja,zh}.json`에 `notFound` 섹션 추가
+- 검증 (Chrome UA, Accept-Language ko/en):
+  - `/concerns/심술보` (ko) → 301 → `/ko/concerns/jowl-sagging` → 200 ✅
+  - `/concerns/심술보` (en) → 301 → `/en/concerns/jowl-sagging` → 200 ✅
+  - `/en/concerns/wide-cheekbonescheeks` → 301 → `/en/concerns/wide-cheekbones-cheeks` ✅
+  - `/en/concerns/mouth-corner-sagging` → 301 → `/en/concerns/jowl-sagging` ✅
+  - 존재하지 않는 ko slug → `<title>페이지를 찾을 수 없습니다 | 서울클리닉픽</title>` ✅
+  - 존재하지 않는 zh slug → `<title>未找到页面 | 서울클리닉픽</title>` ✅
+  - 존재하지 않는 en slug → `<title>Page Not Found | Seoul Clinic Pick</title>` ✅
+- **5/1 진단 보강**: SEO-009 추가 시점에 next.config.ts redirects()와 middleware의 locale 강제 리다이렉트가 중복되어 한글 백링크가 모두 깨졌던 것이 GA4 5/6 404의 주 원인. 본 수정으로 외부 백링크/북마크 보호 완료.
+- **잔존 마이너 이슈**: 비-ko locale 404 페이지의 title 접미사가 layout default(서울클리닉픽)로 표시됨 — 우선순위 낮음, 별도 작업으로 분리
+- **커밋**: 9504a62 (1차: middleware + LEGACY + not-found + i18n 키), eb09a1d (2차: next.config redirects 제거 + not-found metadata)
+- 파일: `src/middleware.ts`, `src/lib/legacy-slug-map.ts`(신규), `src/app/[locale]/not-found.tsx`(신규), `messages/{ko,en,ja,zh}.json`, `next.config.ts`
+
 ### 403 응답 점검 (5/2 오전)
 - 10:41~10:49 시간대 403 응답 3건 모두 동일 User-Agent: Bytespider (ByteDance 크롤러)
 - SEC-001 BLOCKED_BOTS 리스트에 의한 정상 차단 — 조치 불필요
