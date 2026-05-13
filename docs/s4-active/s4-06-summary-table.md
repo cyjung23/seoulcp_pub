@@ -14,6 +14,7 @@
 | WO-033 | middleware → proxy.ts 마이그레이션 | 📋 대기 | Next.js 16 deprecation 대응 + locale prefix 자동보정 |
 | WO-034 | GSC 유효성 검사 트리거 + 모니터링 | 📋 대기 | 5xx/404/Soft 404 정리 확인, MON-003과 함께 진행 |
 | WO-035 | 빈 클리닉 데이터 자동 보강 | 📋 대기 | 네이버 플레이스 + 심평원 API 활용 |
+| WO-040 | Supabase Data API explicit-grant 정책 대응 | 📋 대기 | 2026-10-30 강제 적용 전 완료, Security Advisor 점검 + 신규 테이블 GRANT 템플릿 SOP화 |
 | WO-037 | changelog 분리 + 인수인계 효율화 | 📋 대기 | 활성/아카이브 분리 + 인덱스 신설 |
 | SEO-006 | Organization JSON-LD (브랜드 인식 강화) | ✅ 완료 | layout.tsx에 구조화 데이터 추가, commit 0f12fcf |
 | SEO-005 | seoulclinicpick.com → seoulcp.com 301 리다이렉트 | ✅ 완료 | Vercel + 가비아 DNS |

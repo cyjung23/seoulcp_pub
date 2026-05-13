@@ -1,6 +1,6 @@
 # S6-07: 마일스톤 타임라인
 
-**최종 갱신:** 2026-05-01
+**최종 갱신:** 2026-05-07
 
 | 날짜 | 마일스톤 |
 |------|---------|
@@ -20,6 +20,8 @@
 | 2026-04-10 | WO-014 전량 완료, WO-015/016/017 완료, Naver 20건 제출 |
 | **예정** | |
 | 2026-05-02 | MON-003 GEO 추세 비교 (2주 후 재확인) |
+| 2026-05-07 | WO-039 404 처리 통합 (다국어 not-found + LEGACY_SLUG_MAP + middleware 일원화), WO-040 Supabase grant 정책 대응 등록 |
+| 2026-10-30 | WO-040 Supabase Data API explicit-grant 강제 적용 마감 |
 
 ---
 
@@ -34,6 +36,7 @@
 - **SEO-009**: defaultLocale ko → en 변경 (SCP 해외 사용자 표준 정렬, commit 5ff5212)
 - **SEO-010**: 빈 클리닉 자동 noindex 처리 — 시술·장비 0개 클리닉 787개 영향 (commit 6ee6624)
 - **후속 작업 등록**: WO-033 (middleware → proxy.ts 마이그레이션), WO-034 (GSC 유효성 검사), WO-035 (외부 API 빈 클리닉 보강), WO-037 (changelog 분리)
+- **2026-05-07 추가 등록**: WO-039 (404 통합, 완료), WO-040 (Supabase explicit-grant 정책 대응, 10/30 마감)
 
 ### 2026-04-25 (v2.20) — SEO 브랜드 강화 + 모니터링 + 관리자 개선 + 마케팅
 - **SEO-005**: seoulclinicpick.com 301 리다이렉트 (Vercel + 가비아 DNS)

@@ -35,7 +35,8 @@
 27. 📋 WO-037 changelog 분리 + 인수인계 효율화 — 활성/아카이브 분리 + 인덱스 신설
 28. 📋 WO-033 middleware → proxy.ts 마이그레이션 — Next.js 16 deprecation 대응
 29. 📋 WO-035 빈 클리닉 데이터 자동 보강 — 네이버 플레이스 + 심평원 API 활용
-30. 📋 PERF-002 서버 측 페이지네이션 — 유입량 증가 시 검토
+30. 📋 WO-040 Supabase Data API explicit-grant 정책 대응 — 2026-10-30 강제 적용 전 완료 (Security Advisor 점검 + 신규 테이블 GRANT SOP)
+31. 📋 PERF-002 서버 측 페이지네이션 — 유입량 증가 시 검토
 
 ## 보류
 31. 🔒 SEO-004 Baidu 站长平台 등록 (해외 등록 중단, 재개 확인 후 진행)
