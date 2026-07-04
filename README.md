@@ -1,4 +1,4 @@
-# SeoulClinicPick (SCP) 표준보고서
+]633;E;head -n 11 /tmp/README.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# SeoulClinicPick (SCP) 표준보고서
 
 서울 소재 미용/성형 클리닉 정보를 한영 이중언어로 제공하는 웹서비스의 프로젝트 문서 저장소입니다.
 
@@ -6,6 +6,42 @@
 - 기술스택: Next.js 16, Supabase, Vercel
 - 타겟: 한국 미용시술에 관심 있는 외국인
 - 지원 언어: 한국어, English, 日本語, 中文(简体)
+
+---
+
+## 저장소 구조 및 작업 방식 (AI 필독)
+
+### 저장소 이원화
+
+| 저장소 | 공개 | 내용 |
+|--------|------|------|
+| `cyjung23/seoulcp` | Private | 서비스 소스코드 |
+| `cyjung23/seoulcp_pub` | Public | 표준문서(docs/) + DB 덤프(db-backup/) + README.md |
+
+표준문서는 `seoulcp_pub`에만 저장한다. `seoulcp`에 표준문서나 DB 백업을 두지 않는다.
+
+### 작업 환경
+
+원장님은 `seoulcp` Codespaces 하나에서 **터미널만** 사용한다. 그 안에 `seoulcp_pub`가 clone되어 있다.
+
+- `/workspaces/seoulcp/` — 소스코드 (Private)
+- `/workspaces/seoulcp_pub/` — 표준문서 저장소 (Public, 현재 사용)
+- `/workspaces/pubrepo/` — 과거 문서 저장소 (활성 아님)
+
+### AI가 지켜야 할 규칙
+
+1. **파일 생성/수정은 heredoc 명령으로만 제공**: `cat > /workspaces/seoulcp_pub/docs/... << 'SCP_EOF' ... SCP_EOF` 형식. 원장님은 이 명령을 터미널에 붙여넣기만 한다.
+2. **파일 경로는 절대경로 사용**: `/workspaces/seoulcp_pub/docs/...` 형식으로 작성.
+3. **긴 파일 수정 시 3단계 안전 방식**: 원본을 `/tmp/`에 백업 → 임시 블록 생성 → `head`+`cat`+`tail`로 재조립.
+4. **git 명령은 별도로 제공**: 파일 작업 후 `cd /workspaces/seoulcp_pub && git add ... && git commit -m "..." && git push` 명령을 따로 안내.
+
+### 백업
+
+Supabase DB는 매일 KST 09:00에 GitHub Actions가 `pg_dump` → `seoulcp_pub/db-backup/`에 직접 커밋. 상세: `docs/s3-completed/s3-03-backup.md`.
+
+### 관련 의사결정
+
+DEC-048 (저장소 이원화), DEC-055 (백업 아키텍처).
 
 ---
 
