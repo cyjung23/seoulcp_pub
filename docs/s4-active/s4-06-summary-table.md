@@ -1,8 +1,10 @@
-]633;E;head -n 5 /tmp/s4-06.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# 작업 현황 요약 (Summary Table)
-> 최종 업데이트: 2026-07-04
+]633;E;head -n 5 /tmp/s4-06.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 5 /tmp/s4-06.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# 작업 현황 요약 (Summary Table)
+> 최종 업데이트: 2026-08-11
 
 | ID | 작업명 | 상태 | 비고 |
 |----|--------|------|------|
+| DATA-003 | 엄나구모성형외과의원(clinic 2280) 개별 정보 수정 요청 처리 | ✅ 완료 | name_en/phone/description 3건 UPDATE, curl 검증 완료, 병원 회신 발송 (2026-08-11) |
+| DATA-004 | 사이트 전체 다국어 필드 구조 개선 + 미매핑 clinic_treatments 다국어화 | 📋 대기 | (1) clinics 언어별 title/description 컬럼 신설 (SEO-013 후보), (2) 언어별 phone 컬럼 검토, (3) 표준 마스터 미매핑 clinic_treatments 규모 조사 및 처리 (엄나구모 20223 가슴성형 등) |
 | BACKUP-003 | Supabase DB 백업 `db-backup/` 직접 커밋 방식 전환 | ✅ 완료 | Artifact 방식 → seoulcp_pub 직접 커밋으로 전환, 워크플로 #84 race condition 해결, 임시 테이블 _backup_data002_descriptions 정리 (48줄 감소), Egress 39%, DEC-055 (2026-07-04) |
 | DATA-002 | clinics.description HTML 엔티티 정리 | ✅ 완료 | 19건 정정 (8종 엔티티 일괄 + 한글 수치 엔티티 수동 복원), 백업 _backup_data002_descriptions, GA4 표시 이슈는 React 표준 인코딩으로 사이트 영향 없음 (2026-06-14) |
 | WO-039 | 404 처리 통합 (다국어 not-found + LEGACY_SLUG_MAP + middleware 일원화) | ✅ 완료 | next.config redirects 제거, 한글/구영문 slug 백링크 보호, 4언어 404 페이지, commits 9504a62/eb09a1d (2026-05-07) |
