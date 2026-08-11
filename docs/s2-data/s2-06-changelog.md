@@ -1,4 +1,4 @@
-]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
+]633;E;head -9 /tmp/s2-06-changelog.backup3.md;159001f6-678c-4c66-ab1f-0fd0424de468]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
 
 **최종 갱신:** 2026-08-11
 **범위:** v2.18 (2026-04-19) ~ 현재
@@ -6,6 +6,17 @@
 **전체 인덱스:** [버전 인덱스 보기](./s2-06-changelog-index.md)
 
 ---
+
+## v2.25 (2026-08-11) — 병원명 데이터 부채 진단 + 방향 C 보완책 (DATA-005)
+
+- 진단: `name_en`에 한글이 섞인 클리닉 2,627건 확인 (전체 2,727건의 96%). 기계적 변환 규칙(접미사만 번역, 고유명사 방치)이 사이트 전반에 적용된 상태.
+- 판단: 스키마 4언어 확장(다국어 title/description 필드 신설)은 기반 데이터 신뢰도 문제로 보류. 방향 C 채택 = 현재 상태 유지, 병원 개별 요청 시에만 정정.
+- 보완책 1 시행: `clinics` 테이블에 정정 이력 추적 컬럼 2개 추가.
+  * `name_en_source` TEXT (auto | clinic_request | admin)
+  * `name_en_corrected_at` TIMESTAMPTZ
+  * clinic 2280(엄나구모)에 소급 이력 표시: source='clinic_request', corrected_at=2026-08-11 00:00:25 KST
+- 보완책 3 시행: `docs/s2-data/clinic-change-requests.md` 신설 (병원 개별 변경 요청 대장, commit 37f200e).
+- 미채택: 보완책 2(정정 표기 가이드라인 문서화) - 요청 빈도 확인 후 필요 시 추가.
 
 ## v2.24 (2026-08-11) — 병원 개별 정보 수정 요청 처리 (DATA-003)
 
