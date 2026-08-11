@@ -3,6 +3,7 @@
 
 | ID | 작업명 | 상태 | 비고 |
 |----|--------|------|------|
+| DATA-005 | 병원명 데이터 부채 진단 + 방향 C 채택 | ✅ 완료 | name_en 한글 혼재 2,627/2,727건(96%) 진단, 4언어 스키마 확장 보류, 개별 요청 시만 정정하는 방향 C 채택. 보완책 1(clinics.name_en_source·name_en_corrected_at 컬럼 신설, clinic 2280 소급 기록) + 보완책 3(clinic-change-requests.md 신설, commit 37f200e) 시행. v2.25 changelog 반영 (commit bab8839, 2026-08-11) |
 | DATA-003 | 엄나구모성형외과의원(clinic 2280) 개별 정보 수정 요청 처리 | ✅ 완료 | name_en/phone/description 3건 UPDATE, curl 검증 완료, 병원 회신 발송 (2026-08-11) |
 | DATA-004 | 사이트 전체 다국어 필드 구조 개선 + 미매핑 clinic_treatments 다국어화 | 📋 대기 | (1) clinics 언어별 title/description 컬럼 신설 (SEO-013 후보), (2) 언어별 phone 컬럼 검토, (3) 표준 마스터 미매핑 clinic_treatments 규모 조사 및 처리 (엄나구모 20223 가슴성형 등) |
 | BACKUP-003 | Supabase DB 백업 `db-backup/` 직접 커밋 방식 전환 | ✅ 완료 | Artifact 방식 → seoulcp_pub 직접 커밋으로 전환, 워크플로 #84 race condition 해결, 임시 테이블 _backup_data002_descriptions 정리 (48줄 감소), Egress 39%, DEC-055 (2026-07-04) |
