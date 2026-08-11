@@ -1,9 +1,46 @@
-# S2-06: 버전별 변경 사항 (활성)
+]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
 
-**최종 갱신:** 2026-05-01
+**최종 갱신:** 2026-08-11
 **범위:** v2.18 (2026-04-19) ~ 현재
 **아카이브:** [v2.0 ~ v2.17 보기](./s2-06-changelog-archive-v2.0-v2.17.md)
 **전체 인덱스:** [버전 인덱스 보기](./s2-06-changelog-index.md)
+
+---
+
+## v2.24 (2026-08-11) — 병원 개별 정보 수정 요청 처리 (DATA-003)
+
+- **DATA-003:** 엄나구모성형외과의원(clinic ID 2280) 정보 수정 요청 반영
+  - `name_en`: `엄나구모 Plastic Surgery Clinic` → `Umnagumo Plastic Surgery Clinic` (영문 필드 한글 잔존 문제 해결)
+  - `phone`: `512-6838` → `02-512-6838` (지역번호 추가)
+  - `description`: `가슴확대·재수술 전문` → `가슴확대·가슴재수술` (의료광고 규정상 '전문' 표기 제거 요청)
+  - 처리 방식: Supabase SQL Editor에서 단일 UPDATE 실행
+  - 검증: curl로 KO/EN/JA 페이지 title 및 description 확인 완료
+  - 병원측 회신 발송 완료 (2026-08-11)
+- **미해결로 남긴 항목 (DATA-004로 백로그 등재):**
+  - 국제 전화번호 표기(`+82-2-512-6838`): 현재 스키마에 언어별 phone 컬럼 없음, 다국어 필드 구조 개선 시 반영 예정
+  - 영어/일본어 페이지 title 다국어화: `clinic.description` 컬럼을 title 소스로 재활용하는 구조적 한계. 사이트 전체 스키마 개선 필요 (SEO-013 후보)
+  - 병원 제공 다국어 표기(참고용, DATA-004 처리 시 우선 반영):
+    - 영어: `Breast Augmentation Korea | Umnagumo Plastic Surgery`
+    - 일본어: `韓国 豊胸 | Umnagumo美容整形外科`
+- **추가 발견 사항 (스크린샷 확인 중):**
+  - clinic 2280의 `Other > 가슴성형` 항목이 다국어 페이지에서 한국어 원본으로 노출됨
+  - 원인: `clinic_treatments.id=20223`이 표준 마스터(`treatments`) 미매핑 상태 → `treatment_name`(한글) 원본 사용
+  - 사이트 전체 미매핑 clinic_treatments 규모 조사 필요, DATA-004 범위에 포함
+
+## v2.23 (2026-07-04) — 백업 아키텍처 개선
+
+### BACKUP-003: Supabase DB 백업 방식 전환
+- **변경 전**: GitHub Actions Artifact (90일 자동 삭제, raw URL 접근 불가)
+- **변경 후**: `seoulcp_pub/db-backup/` 디렉토리에 직접 커밋 (영구 보존, raw URL 접근 가능)
+- **산출물**: `db-backup/data.sql`, `db-backup/schema.sql`
+- **최근 조치**:
+  - 워크플로 #84 race condition 해결
+  - 임시 테이블 `_backup_data002_descriptions` 정리 → 백업 48줄 감소
+  - Supabase Egress 사용량 39% (정상 범위)
+
+### DEC-055: 백업 아키텍처 공식 채택
+- 저장소 이원화 확정: `seoulcp`(Private, 소스코드) / `seoulcp_pub`(Public, 표준문서 + DB덤프)
+- 상세: `docs/s3-completed/s3-03-backup.md`, `docs/s5-decisions/s5-07-dec055-064.md`
 
 ---
 
