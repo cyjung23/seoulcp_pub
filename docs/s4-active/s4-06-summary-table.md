@@ -1,8 +1,9 @@
 ]633;E;head -n 5 /tmp/s4-06.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 5 /tmp/s4-06.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# 작업 현황 요약 (Summary Table)
-> 최종 업데이트: 2026-08-11
+> 최종 업데이트: 2026-09-04
 
 | ID | 작업명 | 상태 | 비고 |
 |----|--------|------|------|
+| DATA-006 | 참의원(clinic 6) 신규 시술 등록 + concerns clinic count 버그 수정 | ✅ 완료 | 결절제거주사(독점 신규, standard uuid 7580690e-…, treatment 893, clinic_treatment 39075, concerns 187~192 신규 6건, encyclopedia 165, 4언어) + 지방흡입유착교정(160cc, clinic_treatment 39076) 등록. concerns/[slug]/page.tsx의 treatment_id NULL 조인 버그를 standard_treatment_id 기반으로 수정 (seoulcp 4e05c80). clinic_concerns 10건 매핑. 매뉴얼(e31a0dd) 첫 신규 시술 등록 적용 사례 (2026-09-04) |
 | DATA-005 | 병원명 데이터 부채 진단 + 방향 C 채택 | ✅ 완료 | name_en 한글 혼재 2,627/2,727건(96%) 진단, 4언어 스키마 확장 보류, 개별 요청 시만 정정하는 방향 C 채택. 보완책 1(clinics.name_en_source·name_en_corrected_at 컬럼 신설, clinic 2280 소급 기록) + 보완책 3(clinic-change-requests.md 신설, commit 37f200e) 시행. v2.25 changelog 반영 (commit bab8839, 2026-08-11) |
 | DATA-003 | 엄나구모성형외과의원(clinic 2280) 개별 정보 수정 요청 처리 | ✅ 완료 | name_en/phone/description 3건 UPDATE, curl 검증 완료, 병원 회신 발송 (2026-08-11) |
 | DATA-004 | 사이트 전체 다국어 필드 구조 개선 + 미매핑 clinic_treatments 다국어화 | 📋 대기 | (1) clinics 언어별 title/description 컬럼 신설 (SEO-013 후보), (2) 언어별 phone 컬럼 검토, (3) 표준 마스터 미매핑 clinic_treatments 규모 조사 및 처리 (엄나구모 20223 가슴성형 등) |

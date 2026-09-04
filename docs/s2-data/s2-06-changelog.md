@@ -7,6 +7,27 @@
 
 ---
 
+## v2.26 (2026-09-04) — 참의원(clinic 6) 신규 시술 등록 + concerns 페이지 clinic count 버그 수정 (DATA-006)
+
+- **신규 시술 등록: 결절제거주사** (참의원 독점, 다른 병원 미보유)
+  * `standard_treatments`: uuid 7580690e-480f-4dc4-a3c3-96330d6564f4 (sort_order 11, category '부작용·교정', 4언어 명칭, match_keywords 62개 4언어)
+  * `treatments`: id 893 (bridge record)
+  * `clinic_treatments`: id 39075 (clinic 6, 280,000원, 1회 28만 / 3회 66만 21%할인, 5cc 이내)
+  * `concerns`: 신규 6건 등록 (id 187~192) - 쥬베룩/쥬베룩볼륨/레디어스/스컬트라/스킨부스터/콜라겐부스터 결절 (제품명별 검색자 의도 반영, 4언어)
+  * `treatment_concerns`: 10건 매핑 (신규 6 + 기존 4: 유착/울퉁불퉁함/수술후유착/섬유화조직)
+  * `encyclopedia`: id 165 (4언어 × 10필드 완전 등록)
+  * `encyclopedia_treatment_map`: uuid 42eb580d-… (match_type='exact', confidence=1.00)
+- **추가 시술 등록: 지방흡입유착교정 (160cc)**
+  * `clinic_treatments`: id 39076 (clinic 6, 180,000원, 160cc / 1회 18만·4회 60만(17%)·8회 105만(27%), 유효 12개월)
+  * 80cc 옵션은 이용률 10% 이하로 단일 표기 (160cc 기준)
+- **concerns 페이지 clinic count 로직 수정** (근본 버그 해결)
+  * 문제: `/concerns/[slug]/page.tsx` 라인 83~97이 `clinic_treatments.treatment_id`(integer)로 조인 → 실제 컬럼은 항상 NULL이라 count가 항상 0
+  * 수정: `standard_treatment_id`(uuid) 기반 조인으로 변경, `stdIdToTreatmentId` 매핑 도입해 UI 인터페이스 유지
+  * 커밋: seoulcp 4e05c80 (fix(concerns): use standard_treatment_id for clinic count)
+  * 효과: 참의원 4개 유착 관련 시술이 `/concerns/adhesion` 등에서 "1개 클리닉"으로 정상 표시
+- **clinic_concerns 데이터 보완**: clinic 6 ↔ concerns 148,149,152,177,187~192 (10건, source='manual')
+- **매뉴얼 반영**: 개별 요청 처리 절차(commit e31a0dd)의 첫 다중 테이블 신규 시술 등록 사례로 확인
+
 ## v2.25 (2026-08-11) — 병원명 데이터 부채 진단 + 방향 C 보완책 (DATA-005)
 
 - 진단: `name_en`에 한글이 섞인 클리닉 2,627건 확인 (전체 2,727건의 96%). 기계적 변환 규칙(접미사만 번역, 고유명사 방치)이 사이트 전반에 적용된 상태.
