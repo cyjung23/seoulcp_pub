@@ -28,6 +28,25 @@
 - **clinic_concerns 데이터 보완**: clinic 6 ↔ concerns 148,149,152,177,187~192 (10건, source='manual')
 - **매뉴얼 반영**: 개별 요청 처리 절차(commit e31a0dd)의 첫 다중 테이블 신규 시술 등록 사례로 확인
 
+### 추가 개선: 검색 페이지 띄어쓰기 무관 양방향 매칭 (RPC 도입)
+
+**배경**: 참의원 신규 시술 등록 후 검색 노출을 확인하던 중, `스컬트라결절` (공백 없음) 입력 시 concerns id 190 (`스컬트라 결절`)이 매칭되지 않는 문제 발견. DB에 공백을 포함해 저장된 데이터는 총 3,116건 (concerns 115, treatments 81, devices 85, clinics 2,727, encyclopedia 108).
+
+**1차 시도 (커밋 ed33355)** — `pattern1` + `pattern2` 이중 패턴을 클라이언트에서 생성해 `.or()` 필터로 전달. "공백 있는 입력 → 공백 없는 DB" 단방향만 커버. `.ilike()` 필터는 컬럼 함수(REPLACE) 적용이 불가해 반대 방향 미지원.
+
+**2차 근본 해결 (커밋 930ed8a)** — Supabase RPC 함수 5개 도입:
+- `search_concerns_normalized(q TEXT)`
+- `search_treatments_normalized(q TEXT)`
+- `search_devices_normalized(q TEXT)`
+- `search_clinics_normalized(q TEXT)`
+- `search_encyclopedia_normalized(q TEXT)`
+
+공통 로직: `REPLACE(COALESCE(col, ''), ' ', '') ILIKE '%' || REPLACE(q, ' ', '') || '%'`. `STABLE` 마킹, `LIMIT 20`, 기존 `.select()` 반환 컬럼과 동일 구조 유지. 애플리케이션 코드는 `.from().or()` → `.rpc()` 로 대체 (43줄 삭제, 5줄 추가).
+
+**검증**: 배포 후 5개 케이스 정상 확인 (`스컬트라결절` ↔ `스컬트라 결절` 양방향, `결절제거주사`, `강남`, `울쎄라`).
+
+**남은 이슈**: 검색 페이지에서 간헐적 `too many requests` 발생 → 별도 세션에서 조사 예정.
+
 ## v2.25 (2026-08-11) — 병원명 데이터 부채 진단 + 방향 C 보완책 (DATA-005)
 
 - 진단: `name_en`에 한글이 섞인 클리닉 2,627건 확인 (전체 2,727건의 96%). 기계적 변환 규칙(접미사만 번역, 고유명사 방치)이 사이트 전반에 적용된 상태.
