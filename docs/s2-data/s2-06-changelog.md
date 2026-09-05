@@ -7,6 +7,34 @@
 
 ---
 
+## v2.27 (2026-09-05) - 검색 페이지 429 (Too Many Requests) 근본 해결
+
+### 배경
+v2.26 배포 후 검색 페이지에서 1분 내 반복 요청 시 "Too Many Requests" 에러 간헐 발생. 실사용자 검색 경험 저해 우려로 별도 세션에서 해결.
+
+### 진단
+- curl 헤더 분석으로 원인 확진:
+  - `cache-control: private, no-cache, no-store, max-age=0, must-revalidate`
+  - `x-vercel-cache: MISS` (2회 연속)
+  - `age: 0`
+- **원인**: Next.js App Router에서 `searchParams`(`?q=...`)를 사용하는 페이지는 동적 렌더링으로 자동 판정되어 `export const revalidate = 60` 설정이 무시됨. 1차 시도(module-scope Supabase client + revalidate = 60, 커밋 dafe922)가 효과 없었던 이유.
+
+### 해결 (commit 89da189)
+- `unstable_cache`로 5개 RPC 호출을 60초 캐시:
+  - 검색어별 캐시 키 자동 분리
+  - `tags: ["search"]` 설정으로 향후 명시적 무효화 가능
+  - 페이지는 계속 동적 렌더링, DB 호출만 캐시 히트 시 스킵
+- 변경 범위: `src/app/[locale]/search/page.tsx` (+31 / -11)
+
+### 검증
+- 동일 검색어 30회 연속 요청: 모두 200 OK
+- 5개 검색어 무작위 20회 요청: 모두 200 OK
+- 응답 시간은 1.2~1.7s로 큰 감소는 없음 (페이지 렌더링 오버헤드가 주 원인, DB 호출은 캐시로 스킵됨)
+
+### 남은 이슈
+- 페이지 렌더링 응답 시간 최적화 (별도 백로그)
+- DATA-004: 병원명 다국어 필드 정비 (백로그 유지)
+
 ## v2.26 (2026-09-04) — 참의원(clinic 6) 신규 시술 등록 + concerns 페이지 clinic count 버그 수정 (DATA-006)
 
 - **신규 시술 등록: 결절제거주사** (참의원 독점, 다른 병원 미보유)
