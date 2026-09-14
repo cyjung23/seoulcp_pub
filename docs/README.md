@@ -1,7 +1,7 @@
 # Seoul Clinic Pick (SCP) 표준보고서
 
-**최종 갱신:** 2026-04-15
-**총 파일:** 41개 (6개 섹션)
+**최종 갱신:** 2026-09-14
+**총 파일:** 46개 (7개 섹션)
 
 ## 프로젝트 요약
 
@@ -32,6 +32,7 @@ Seoul Clinic Pick은 서울 소재 미용/성형 클리닉 정보를 한영 이�
 - s1-03-architecture.md — 아키텍처, 배포 파이프라인
 - s1-04-file-structure.md — 코드 파일 구조
 - s4-06-summary-table.md — 활성 작업 요약표
+- s8-01-clinic-onboarding-playbook.md — 병원 입점 대응 플레이북
 - s6-02-short-term.md — 단기 로드맵
 
 ### 기획2팀 (보조 기획)
@@ -127,3 +128,12 @@ https://raw.githubusercontent.com/cyjung23/seoulcp_pub/main/docs/s1-master/s1-01
 | s6-05-coverage-targets.md | 커버리지 목표 대비 현황 | 2026-04-11 |
 | s6-06-decisions-needed.md | 의사결정 필요 항목 | 2026-04-11 |
 | s6-07-milestones.md | 마일스톤 타임라인 | 2026-04-11 |
+
+### s8-operations (운영 프로세스)
+| 파일 | 내용 | 최종 갱신 |
+|---|---|---|
+| s8-01-clinic-onboarding-playbook.md | 병원 입점 대응 플레이북 | 2026-09-14 |
+| s8-02-crawling-guide.md | 병원 홈페이지 크롤링 가이드 | 2026-09-14 |
+| s8-03-data-collection-checklist.md | 정보 수집 체크리스트 | 2026-09-14 |
+| s8-04-onboarding-log.md | 병원 입점 이력 로그 | 2026-09-14 |
+| cases/case-001-mulbangul-clinic.md | CASE-001 물방울성형외과 상세 | 2026-09-14 |
