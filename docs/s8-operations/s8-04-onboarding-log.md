@@ -28,6 +28,8 @@
 
 ### CASE-001. 물방울성형외과
 
+**상세 데이터:** [cases/case-001-mulbangul-clinic.md](cases/case-001-mulbangul-clinic.md)
+
 - **병원명**: 물방울 성형외과 (Stilla Plastic Surgery & Anti-Aging)
 - **도메인**: https://mbwps.com
 - **문의일**: 2026-09-10
