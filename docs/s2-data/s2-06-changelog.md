@@ -1,11 +1,45 @@
 ]633;E;head -9 /tmp/s2-06-changelog.backup3.md;159001f6-678c-4c66-ab1f-0fd0424de468]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
 
-**최종 갱신:** 2026-08-11
+**최종 갱신:** 2026-09-15
 **범위:** v2.18 (2026-04-19) ~ 현재
 **아카이브:** [v2.0 ~ v2.17 보기](./s2-06-changelog-archive-v2.0-v2.17.md)
 **전체 인덱스:** [버전 인덱스 보기](./s2-06-changelog-index.md)
 
 ---
+
+## v2.28 (2026-09-15) — 검색 동의어 시스템 도입 (search_keywords 컬럼)
+
+### 배경
+- 사용자가 "이마지방제거주사"로 검색 시 결과 없음. 실제 등록된 표준 시술명은 "이마지방이식제거주사".
+- 부분 문자열 매칭(ILIKE) 방식의 한계로, 중간에 "이식" 문자열이 끼어 매칭 실패.
+- 원장 임상 판단: 두 표현 모두 이마 지방이식 후 과생착된 지방을 제거하려는 동일 의도, 동일 약물로 치료 → 별도 시술이 아닌 동의어로 처리 적절.
+
+### 진단
+- 검색 함수 `search_treatments_normalized`, `search_encyclopedia_normalized`는 공백만 정규화한 ILIKE 매칭.
+- 표준 시술명과 소비자 검색 표현 간 어휘 차이를 흡수할 매커니즘 부재.
+
+### 해결
+- `standard_treatments`, `encyclopedia`에 `search_keywords text[]` 컬럼 추가.
+- GIN 인덱스 2개 신규 생성 (`idx_standard_treatments_search_keywords`, `idx_encyclopedia_search_keywords`).
+- 검색 함수 2개 재정의:
+  * `search_treatments_normalized`: `treatments` LEFT JOIN `standard_treatments`로 확장, 표준 시술의 키워드까지 매칭.
+  * `search_encyclopedia_normalized`: `encyclopedia.search_keywords` 배열 매칭 OR 조건 추가.
+- 이마지방이식제거주사에 동의어 8개 최초 등록:
+  * 한글 6: 이마지방제거주사, 이마지방빼는주사, 이마지방녹이는주사, 이마지방분해주사, 이마지방파괴주사, 이마지방융해주사
+  * 영문 2: forehead fat removal, forehead fat dissolving injection
+
+### 검증
+- SQL: `search_treatments_normalized('이마지방제거주사')` → id=888 매칭 ✅
+- SQL: `search_encyclopedia_normalized('이마지방제거주사')` → id=160 매칭 ✅
+- 프로덕션 실사이트: `이마지방제거주사`, `이마 지방 제거 주사` 검색 모두 이마지방이식제거주사 정상 노출 ✅
+- 기존 검색어(`이마지방`, `이마 지방`)는 회귀 없음 ✅
+
+### 관련 문서
+- 운영 가이드: [s8-05 검색 동의어 시스템](../s8-operations/s8-05-search-synonyms.md)
+
+### 남은 이슈
+- 다른 시술의 동의어는 소비자 검색 로그(결과 없음 케이스) 기반으로 추가 예정.
+- 원장 전문 영역의 유사 시술(볼/턱/애교 등 지방이식제거주사)은 현 시점에서 소비자 검색 표현이 확인되지 않아 확장 보류.
 
 ## v2.27 (2026-09-05) - 검색 페이지 429 (Too Many Requests) 근본 해결
 
