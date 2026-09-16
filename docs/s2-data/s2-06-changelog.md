@@ -1,11 +1,54 @@
 ]633;E;head -9 /tmp/s2-06-changelog.backup3.md;159001f6-678c-4c66-ab1f-0fd0424de468]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
 
-**최종 갱신:** 2026-09-15
+**최종 갱신:** 2026-09-16
 **범위:** v2.18 (2026-04-19) ~ 현재
 **아카이브:** [v2.0 ~ v2.17 보기](./s2-06-changelog-archive-v2.0-v2.17.md)
 **전체 인덱스:** [버전 인덱스 보기](./s2-06-changelog-index.md)
 
 ---
+
+## v2.29 (2026-09-16) — Database Unhealthy 사고 대응 및 근본 수정 (ClinicsFilter Supabase 클라이언트)
+
+### 배경
+- 사용자 신고: 홈페이지 상단 검색창 미작동, 메뉴 클릭 반응 없음.
+- Supabase Dashboard 확인: Database Status = **Unhealthy**, API 성공률 1.2% (1,014건 중 945건 실패), CONNECT_TIMEOUT 5011ms.
+- 발생 시점: v2.28 배포 후 약 하루 경과 시점.
+
+### 진단
+- DB 리소스 자체는 정상 (CPU 39%, RAM 44%, Disk 4%) → 리소스 부족이 아닌 **Connection Pool 고갈**로 판정.
+- 원인 코드 특정: `src/app/[locale]/clinics/ClinicsFilter.tsx` (v2.27에서 신규 도입한 클라이언트 컴포넌트).
+  * 문제 패턴: `import { createClient } from "@supabase/supabase-js"` + `const supabase = createClient(URL, KEY)` 모듈 스코프 호출.
+  * 다른 클라이언트 컴포넌트들은 모두 `@/lib/supabase-browser` 헬퍼(`createBrowserClient` 기반) 사용 중이었음.
+  * raw `createClient`는 auth 스토리지를 공유하지 않아 브라우저 세션마다 새 GoTrueClient 인스턴스 생성 → 커넥션 누적.
+- 브라우저 콘솔 증거: "Multiple GoTrueClient instances detected in the same browser context" 경고 관측.
+
+### 응급 조치
+- Supabase Dashboard → Project Settings → General → **Restart project** 실행.
+- 재시작 후 약 1-2분 내 Database Status = Healthy 복귀, 사이트 접속 정상화.
+- Connection pool size는 임시로 15 → 30 조정 (효과 미미하여 최종 조치는 코드 수정으로 진행).
+
+### 근본 수정 (commit f350f5d)
+- `ClinicsFilter.tsx` 수정:
+  * `@supabase/supabase-js` 직접 import 제거
+  * `@/lib/supabase-browser` 헬퍼 사용으로 전환
+  * 다른 클라이언트 컴포넌트와 동일 패턴으로 통일
+- 변경 범위: `src/app/[locale]/clinics/ClinicsFilter.tsx` (+2 / -5)
+
+### 검증
+- Vercel 배포 완료 후 브라우저 콘솔: "Multiple GoTrueClient instances detected" 경고 사라짐 ✅
+- Supabase Dashboard (배포 후 약 30분): Status = Healthy, API 성공률 1.2% → **85.2%**, Connections 10/60 안정 ✅
+- Critical 경고 2건 해소: "Data API error rate is persistently high", "Database not usable" ✅
+- 응답 시간: 홈 ~600ms, clinics ~600ms, search ~1,400ms (정상 범위 복귀).
+
+### 남은 이슈
+- 다른 서버 컴포넌트 9곳도 `createClient(URL, KEY)` 직접 호출 중 (서버 컴포넌트라 오늘 사고의 직접 원인은 아니지만, `supabase-server.ts` 헬퍼로 통일 필요).
+- `supabase-browser.ts` 헬퍼를 진정한 싱글톤 패턴으로 개선 검토.
+- Advisor 잔여 경고: RLS references user metadata (다수), Security Definer View (`v_popular_treatments`, 이미 mv로 대체됨 → 삭제 대상), Auth RLS Initialization Plan.
+
+### 교훈
+- **클라이언트 컴포넌트에서 Supabase 클라이언트 생성은 반드시 `@/lib/supabase-browser` 헬퍼 경유**.
+- 신규 클라이언트 컴포넌트 배포 시 브라우저 콘솔의 GoTrueClient 경고 확인을 배포 후 필수 체크리스트에 포함.
+- Connection Pool 고갈은 CPU/Memory 지표로는 감지되지 않음 → API 성공률·Connections 카운트를 우선 모니터링.
 
 ## v2.28 (2026-09-15) — 검색 동의어 시스템 도입 (search_keywords 컬럼)
 
