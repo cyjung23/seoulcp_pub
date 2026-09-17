@@ -1,12 +1,70 @@
 ]633;E;head -9 /tmp/s2-06-changelog.backup3.md;159001f6-678c-4c66-ab1f-0fd0424de468]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
 
-**최종 갱신:** 2026-09-16
+**최종 갱신:** 2026-09-17
 **범위:** v2.18 (2026-04-19) ~ 현재
 **아카이브:** [v2.0 ~ v2.17 보기](./s2-06-changelog-archive-v2.0-v2.17.md)
 **전체 인덱스:** [버전 인덱스 보기](./s2-06-changelog-index.md)
 
 ---
 
+## v2.30 (2026-09-17) — 검색 정규화 개선 + 카테고리 수정 + 404 리디렉션
+
+### 배경
+- 병원명 검색 이슈: `참의원` 검색 시 참의원만 나와야 하는데 `참`이 포함된 7개 병원이 모두 노출됨.
+- 시술 카테고리 오류: `문신제거`가 `피부관리`로 잘못 분류됨 (레이저 시술이므로 `색소치료`가 적합).
+- Google Search Console 404: 67개 URL 중 시술 관련 3개(`/treatments/사각턱`, `/treatments/리프팅수술`, `/treatments/차가지방이식`)가 실제 404 반환.
+- 참의원 태그 요청: 시술 목록에 `결절제거주사`가 있으나 상단 태그 영역에 없음. 유착제거주사와 눈지방제거주사 사이에 배치 필요.
+
+### 진단
+- `search_clinics_normalized` 함수가 접미사(의원, 클리닉 등) 정규화만 수행하여, 어근이 1글자(예: `참`)인 경우 부분 일치가 광범위한 오탐 유발.
+- `standard_treatments` 테이블에서 `문신제거`(id `f958c8f9-...`)의 `category_ko`가 `피부관리`(order 13)로 저장됨.
+- 사각턱, 리프팅수술은 이름이 변경(`사각턱축소`, `안면거상술`)되면서 기존 URL 미대응.
+- 차가지방이식은 코드/DB/문서 어디에도 없는 URL (외부 유입 또는 과거 크롤링 잔재).
+- `clinic_specialties` 테이블에 `sort_order` 컬럼 없음. 조회 코드에 `ORDER BY` 절도 없어 물리적 저장 순서로 반환됨.
+
+### 해결
+
+**1. 병원명 검색 정규화 개선** (Supabase RPC)
+- `search_clinics_normalized(q text)` 재정의: 어근이 1글자이고 원래 검색어에 접미사가 있는 경우(예: `참의원`) `name_ko` 완전 일치만 허용, 그 외에는 기존 부분 일치 유지.
+- 다른 필드(`name_en`, `address_ko`, `district_ko`)는 부분 일치 유지하되, 1글자 어근+접미사 케이스에서는 제외하여 오탐 방지.
+
+**2. 문신제거 카테고리 수정** (Supabase)
+- `standard_treatments`: `category_ko` → `색소치료`, `category_en` → `Pigmentation`, `category_order` → 10.
+- `treatments` (id 163): `category_ko` → `색소치료`.
+- 색소치료 카테고리 시술 수: 8 → 9.
+
+**3. 404 URL 301 리디렉션** (`next.config.ts`)
+- `/:locale/treatments/사각턱` → `/:locale/treatments/사각턱축소`
+- `/:locale/treatments/리프팅수술` → `/:locale/treatments/안면거상술`
+- 4개 로케일(ko/en/ja/zh) 모두 처리. URL 인코딩된 값으로 `source` 작성 (한글 매칭 실패 이슈 해결).
+- 차가지방이식은 실존 이력 없어 방치.
+
+**4. 참의원 태그 추가 및 순서 조정** (Supabase)
+- `clinic_specialties`에 `결절제거주사` 추가 (`Nodule Removal Injection`).
+- 전체 6개 재삽입으로 순서 확정: 지방이식제거주사 → 유착제거주사 → 결절제거주사 → 눈지방제거주사 → 지방파괴주사 → 지방이식/지방흡입 부작용치료.
+- 사유: `clinic_specialties` 테이블에 정렬 컬럼 없음, 조회 코드에 `ORDER BY` 없음. 물리적 저장 순서 제어 위해 전체 삭제 후 순차 재삽입.
+
+### 검증
+- `search_clinics_normalized('참의원')` → `참의원`만 1건 반환 ✅
+- `search_clinics_normalized('참')` → 7개 병원 반환 (부분 일치 유지) ✅
+- `search_clinics_normalized('밴스성형외과')` → 20건 (LIMIT) 반환 ✅
+- `search_clinics_normalized('미드나잇클리닉')` → `미드나잇의원` 반환 ✅
+- 문신제거: https://seoulcp.com/ko/clinics/2886 페이지에서 `색소치료` 카테고리 노출 확인.
+- 리디렉션: `curl -sI https://seoulcp.com/ko/treatments/사각턱` → HTTP 308, Location `/ko/treatments/사각턱축소` ✅
+- 리디렉션: `curl -sI https://seoulcp.com/ko/treatments/리프팅수술` → HTTP 308, Location `/ko/treatments/안면거상술` ✅
+- 참의원 태그: https://seoulcp.com/ko/clinics/6 페이지에서 6개 태그 원하는 순서로 노출 확인.
+
+### 변경 파일
+- Supabase: `search_clinics_normalized` 함수, `standard_treatments`(1건), `treatments`(1건), `clinic_specialties`(참의원 관련 6건).
+- seoulcp: `next.config.ts` (+16 / -1) — commit d7e0ebd (원본 a6e47c5).
+
+### 남은 이슈
+- Google Search Console 404 재크롤링 대기 (수일~수주 소요).
+- `clinic_specialties` 정렬 컬럼(`sort_order`) 추가 및 조회 코드 `ORDER BY` 적용은 향후 다른 병원 요청 시 리팩토링 고려 (현재는 케이스별 재삽입으로 충분).
+- 유형 A 404(clinic 페이지 5건)는 실제 200 응답 확인됨. GSC URL 검사로 색인 재요청 완료. 근본 원인은 v2.29 사고 시점 크롤러가 오류 응답 수신했을 가능성.
+
+### 관련 문서
+- 없음 (신규 s8 문서 미작성. 필요 시 후속 세션에서 s8-06 검색 정책 문서 검토).
 ## v2.29 (2026-09-16) — Database Unhealthy 사고 대응 및 근본 수정 (ClinicsFilter Supabase 클라이언트)
 
 ### 배경
