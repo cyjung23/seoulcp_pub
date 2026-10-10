@@ -1,9 +1,48 @@
 ]633;E;head -9 /tmp/s2-06-changelog.backup3.md;159001f6-678c-4c66-ab1f-0fd0424de468]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
 
-**최종 갱신:** 2026-09-17
+**최종 갱신:** 2026-10-10
 **범위:** v2.18 (2026-04-19) ~ 현재
 **아카이브:** [v2.0 ~ v2.17 보기](./s2-06-changelog-archive-v2.0-v2.17.md)
 **전체 인덱스:** [버전 인덱스 보기](./s2-06-changelog-index.md)
+
+---
+
+## v2.34 (2026-10-10) — ISR 캐싱 적용 (Log Ingestion·Disk IO 부하 감소)
+
+- **배경**: Supabase Disk IO Budget 경고 3회 수신(9/25, 10/6, 10/10), Log Ingestion 2.63 GB로 Free Plan 1 GB 한도 263% 초과(2027년 과금 시작).
+- **진단**: `/clinics/[id]` 페이지 1회 로드당 Supabase 쿼리 7~13개 발생. `clinic_treatments`·`clinic_devices`가 generateMetadata와 getData에서 중복 호출. pg_stat_statements 13일간 2,009,114회(일평균 154,500회).
+- **원인**: `src/app/[locale]/clinics/[id]/page.tsx`에 `export const dynamic = "force-dynamic"` 설정으로 모든 요청마다 DB 조회.
+- **해결**: `force-dynamic` 제거 → `revalidate = 60` (ISR 60초 캐싱).
+- **변경**: `src/app/[locale]/clinics/[id]/page.tsx` (+1/-1), commit `7d32353`.
+- **검증**: clinic 6/1494/2898 교차 테스트 데이터 섞임 없음.
+- **남은 이슈**: 24시간 후 Disk IO·Log Ingestion 지표 재확인. 효과 미달 시 wiki/concerns/treatments에도 동일 조치. devices 중복(울쎄라 id 1·154, 실펌X id 90·159) 정리 별도 티켓.
+
+---
+
+## v2.33 (2026-10-10) — DATA-008 물방울성형외과 신규 입점
+
+- **대상**: clinic 2898 신규 등록 (CASE-001 참조, s8-04-onboarding-log).
+- **처리**: clinics INSERT (서초구 강남대로 557 성한빌딩 8층, +82-2-511-7333, 좌표 37.5114921, 127.0206624 — OSM Nominatim 공식 노드), clinic_treatments 20종, clinic_devices 7종, clinic_concerns 14종.
+- **부가**: devices 테이블에 `소프라노 티타늄`(id 182) 신규 추가.
+- **참고**: 동명이원 존재(강남구 논현동 미혜빌딩 modoodoc 6739) — 중복검증 시 상호+전화+주소 교차확인 필요.
+
+---
+
+## v2.32 (2026-10-06) — DATA-007 라리성형외과의원 정보 정정
+
+- **대상**: clinic 1494 (CASE-002 참조, s8-04-onboarding-log).
+- **요청**: VENTRIX Co. (ventrixcorp@gmail.com) 주소 이전·연락처·영문 상호 정정.
+- **처리**: 주소 → 서초구 강남대로 621 K-TOWER 8층, phone → +82-2-547-7552, name_en → Laree Plastic Surgery, 좌표 → 37.5171318, 127.0188786 (goodoc JSON-LD).
+
+---
+
+## v2.31 (2026-10-01) — Rate Limit 임계값 상향 (429 체감 문제 해결)
+
+- **배경**: SCP 사이트에서 몇 번 클릭만에 "Too Many Requests" 발생 → 신규 방문자 이탈·SEO 크롤러 영향 우려.
+- **진단**: `src/middleware.ts` 자체 rate limit (SEC-001, v2.19). `RATE_LIMIT_MAX = 60` 과소(Next.js 페이지 1회 로드가 25~70 요청), `BLOCK_DURATION = 5분` 과도, 인메모리 Map은 서버리스에서 인스턴스별 분리로 부정확.
+- **해결**: `RATE_LIMIT_MAX` 60→300, `RATE_LIMIT_BLOCK_DURATION` 5분→1분. `RATE_LIMIT_WINDOW`(1분)는 유지.
+- **변경**: `src/middleware.ts` (+2/-2), commit `b334435`.
+- **보류**: 봇 화이트리스트·Vercel WAF 이관(Option B).
 
 ---
 
