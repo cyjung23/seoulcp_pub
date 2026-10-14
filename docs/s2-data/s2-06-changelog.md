@@ -1,9 +1,17 @@
 ]633;E;head -9 /tmp/s2-06-changelog.backup3.md;159001f6-678c-4c66-ab1f-0fd0424de468]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
 
-**최종 갱신:** 2026-10-10
+**최종 갱신:** 2026-10-13
 **범위:** v2.18 (2026-04-19) ~ 현재
 **아카이브:** [v2.0 ~ v2.17 보기](./s2-06-changelog-archive-v2.0-v2.17.md)
 **전체 인덱스:** [버전 인덱스 보기](./s2-06-changelog-index.md)
+
+---
+
+## v2.35 (2026-10-13) — DATA-009 라리성형외과 추가 반영 + i18n 진료시간 치환 수정
+
+- **DATA-009 (clinic 1494, CASE-002 2차 참조)**: VENTRIX Co. 요청으로 진료시간·의료진 4명·한국어 소개 UPDATE, 수술 항목 8건 INSERT, standard_treatments 신규 3건(트임복원·쌍꺼풀없애기·토안교정, 눈성형). doctors·description은 UI 정책상 DB 저장만.
+- **i18n 수정**: `src/app/[locale]/clinics/[id]/page.tsx` `translateHours()` 치환 맵을 배열 구조로 변경하여 긴 토큰(공휴일·요일명) 우선순위 명시. en/ja/zh 페이지의 "일요일·공휴일" 깨짐 해소. commit `4c5764c`.
+- **보류/후속**: clinics.description_en 컬럼 신규(영문 소개 저장용), 영문 요일 공백 삽입("MonTueThuFri" → "Mon Tue Thu Fri"), 번역 맵 누락 토큰("점심"·"없음"), legacy clinic_treatments standard_treatment_id NULL 백필.
 
 ---
 

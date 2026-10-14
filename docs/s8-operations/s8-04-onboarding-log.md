@@ -88,19 +88,19 @@
 
 ---
 
-### CASE-002. 라리성형외과의원 (정보 정정)
+### CASE-002. 라리성형외과의원 (정보 정정 + 추가 반영)
 
 - **병원명**: 라리성형외과의원 (Laree Plastic Surgery)
 - **clinic_id**: 1494 (기존 등록)
-- **요청일**: 2026-10-01
 - **요청자**: VENTRIX Co. / ventrixcorp@gmail.com (마케팅 대행)
-- **요청 유형**: 주소 이전·연락처·영문 상호 정정
-- **처리일**: 2026-10-06
-- **처리 내용**: 주소 → 서울특별시 서초구 강남대로 621, K-TOWER 8층 / phone → +82-2-547-7552 / name_en → Laree Plastic Surgery / 좌표 → 37.5171318, 127.0188786 (goodoc JSON-LD)
-- **회신**: 2026-10-06 요청자 메일 회신 완료
-- **특이사항**: 좌표 소스로 goodoc.co.kr JSON-LD(schema.org) 가장 정확. OSM Nominatim도 유효 (CASE-001 참조).
+- **처리 이력**:
+  - 1차 (2026-10-06, DATA-007 / v2.32): 주소 이전·연락처·영문 상호 정정
+  - 2차 (2026-10-13, DATA-009 / v2.35): 진료시간·의료진·소개·수술 항목 추가
+- **회신**: 각 처리일에 요청자 메일 회신 완료
+- **상세**: [cases/case-002-laree-plastic-surgery.md](./cases/case-002-laree-plastic-surgery.md)
 
 ---
+
 
 ## 4. 통계
 
