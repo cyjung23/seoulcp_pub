@@ -1,5 +1,5 @@
 ]633;E;head -n 5 /tmp/s4-06.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 5 /tmp/s4-06.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# 작업 현황 요약 (Summary Table)
-> 최종 업데이트: 2026-09-04
+> 최종 업데이트: 2026-10-14
 
 | ID | 작업명 | 상태 | 비고 |
 |----|--------|------|------|
@@ -49,3 +49,4 @@
 | WO-025 | Beauty Member Phase 1~3 | ✅ 완료 | v2.9 |
 | WO-024 | 병원 파트너 회원제 Phase 1+2 | ✅ 완료 | v2.8 |
 | WO-023 | 구글맵 연동 | ✅ 완료 | v2.5 |
+| SEO-012 | seoulclinicpick.com 메인 전환 (브랜치 분리 접근) | ⏳ Phase 1 착수 | DEC-056 참조. main 브랜치(seoulcp.com) freeze + scp-new 브랜치(seoulclinicpick.com) 신규 운영. Vercel 프로젝트 2개 분리, DB 공유. Phase 1 환경 구축 → Phase 2 색인 모니터링(2~3개월) → Phase 3 점진 리디렉션 → Phase 4 통합 복귀 (2026-10-14 착수) |
