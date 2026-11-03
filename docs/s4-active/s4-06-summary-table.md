@@ -1,8 +1,14 @@
 ]633;E;head -n 5 /tmp/s4-06.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 5 /tmp/s4-06.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# 작업 현황 요약 (Summary Table)
-> 최종 업데이트: 2026-10-14
+> 최종 업데이트: 2026-11-03
 
 | ID | 작업명 | 상태 | 비고 |
 |----|--------|------|------|
+| OPS-001 | Vercel/Supabase 무료 한도 초과·봇 어뷰즈 사건 (2026-10-26~30) | ✅ 완료 | v2.36. Vercel Hobby CPU 205% 초과로 seoulcp.com 접속 불가, Supabase Unhealthy 동반. Bytespider·중국 Urumqi 봇 어뷰즈 원인. Firewall Bot Protection(Challenge) + AI Bots On, Supabase Restart로 복구. 상세: docs/s8-operations/incidents/incident-001-vercel-supabase-2026-10.md. 후속: PERF-001 ISR revalidate 상향 |
+| FIX-004 | ja/zh 페이지 standard_treatments 다국어명 name_en 폴백 전역 버그 | 📋 대기 | v2.36 티켓 등록. 증상: name_ja·name_zh 존재해도 영문 표기. 영향: 2,000+ clinic ja/zh 페이지. 수정 대상: src/app/[locale]/clinics/[id]/page.tsx locale별 컬럼 선택 로직. FIX-003(진료시간)과 동종 버그 |
+| DATA-013 | 닥터파마니의원(clinic 485) clinic_devices 56건 반영 + devices 신규 39건·카테고리 3개 | ✅ 완료 | v2.36. 기존 devices 재사용 17건(Genesis id 164→169 중복 정리) + 신규 INSERT 39건. 신규 카테고리: 항노화 진단·항노화 치료·피부재생. manufacturer 가능 범위 내 채움 (결정 S-b, T-a, U-OK) |
+| DATA-012 | 닥터파마니의원(clinic 485) clinic_treatments 전면 교체 (3→72건) + standard_treatments 신규 "피부재생" 카테고리 | ✅ 완료 | v2.36. 기존 3건(18355·18356·18357) DELETE → 72건 INSERT (id 39123~39194). 3개 프로그램(Revitalization/Skin Revitalization/Signature Membership) 반영. standard_treatments 신규 카테고리 "피부재생" 신설 (결정 J) |
+| DATA-011 | 닥터파마니의원 (구 메이린청담, clinic 485) 전환 — 접근 B (clinic_id 유지, 전면 교체) | ✅ 완료 | v2.36 (CASE-004). GeoWise 요청, 2023년 개설신고증명서 명칭 변경 후행 반영. clinics UPDATE: name_ko '닥터파마니의원', website drparmani.com, specialties ["항노화","피부항노화","리프팅","안티에이징","웰니스"], operating_hours·doctors·description 전면 교체. 메이린 네트워크 탈퇴, 타 지점(1170·1995·875) 연결 없음 확인. maylincheongdam.com 리디렉션 없음 |
+| DATA-010 | 셀린의원 홍대점(clinic 2899) 신규 등록 + standard_treatments 신규 2건 (볼뉴머·색소치료) | ✅ 완료 | v2.36 (CASE-003). 셀린 홍대점 운영사 요청. clinics INSERT 1건(마포구 양화로 162, 1800-6156, 평일 10-20시, 좌표 modoodoc 기반). standard_treatments 2건 신설(ja/zh 포함, 볼뉴머 zh 간체 '沃纽美'로 정정). clinic_treatments 18건 INSERT (id 39105~39122). 네트워크의원 정책: 본점·명동점과 별개 clinic 등록 |
 | DATA-006 | 참의원(clinic 6) 신규 시술 등록 + concerns clinic count 버그 수정 | ✅ 완료 | 결절제거주사(독점 신규, standard uuid 7580690e-…, treatment 893, clinic_treatment 39075, concerns 187~192 신규 6건, encyclopedia 165, 4언어) + 지방흡입유착교정(160cc, clinic_treatment 39076) 등록. concerns/[slug]/page.tsx의 treatment_id NULL 조인 버그를 standard_treatment_id 기반으로 수정 (seoulcp 4e05c80). clinic_concerns 10건 매핑. 매뉴얼(e31a0dd) 첫 신규 시술 등록 적용 사례. 검색 페이지 띄어쓰기 무관 양방향 매칭 개선: Supabase RPC 5개 신설(search_concerns/treatments/devices/clinics/encyclopedia_normalized), 검색 페이지를 `.from().or()`→`.rpc()`로 전환(seoulcp ed33355→930ed8a) (2026-09-04) |
 | DATA-005 | 병원명 데이터 부채 진단 + 방향 C 채택 | ✅ 완료 | name_en 한글 혼재 2,627/2,727건(96%) 진단, 4언어 스키마 확장 보류, 개별 요청 시만 정정하는 방향 C 채택. 보완책 1(clinics.name_en_source·name_en_corrected_at 컬럼 신설, clinic 2280 소급 기록) + 보완책 3(clinic-change-requests.md 신설, commit 37f200e) 시행. v2.25 changelog 반영 (commit bab8839, 2026-08-11) |
 | DATA-003 | 엄나구모성형외과의원(clinic 2280) 개별 정보 수정 요청 처리 | ✅ 완료 | name_en/phone/description 3건 UPDATE, curl 검증 완료, 병원 회신 발송 (2026-08-11) |

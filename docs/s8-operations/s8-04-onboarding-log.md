@@ -102,10 +102,36 @@
 ---
 
 
+---
+
+### CASE-003. 셀린의원 홍대점 (신규 등록)
+
+- **병원명**: 셀린의원 홍대점 (Cellin Clinic Hongdae)
+- **clinic_id**: 2899 (신규)
+- **요청자**: 셀린의원 홍대점 담당자
+- **처리 이력**:
+  - 2026-10-30 (DATA-010 / v2.35): 신규 등록, standard_treatments 2건 신규(볼뉴머/색소치료), clinic_treatments 18건
+- **상세**: [cases/case-003-cellin-clinic-hongdae.md](./cases/case-003-cellin-clinic-hongdae.md)
+
+---
+
+### CASE-004. 닥터파마니의원 (상호 변경, 구 메이린청담)
+
+- **병원명**: 닥터파마니의원 (Dr.PARMANI CLINIC)
+- **clinic_id**: 485 (기존 ID 유지)
+- **요청자**: 주식회사 행복경영연구소 오창석 / marketing@geowise.co.kr (닥터파마니의원 위임)
+- **처리 이력**:
+  - 2026-11-03 (DATA-011/012/013 / v2.36): 상호 변경(메이린청담→닥터파마니), 홈페이지·진료시간 교체, standard_treatments 62건 신규(항노화 카테고리 3종 신설), devices 40건 신규, clinic_treatments 72건·clinic_devices 56건 재구성
+- **회신**: 처리일 당일 요청자 메일 회신 완료
+- **상세**: [cases/case-004-drparmani-clinic.md](./cases/case-004-drparmani-clinic.md)
+
+---
+
 ## 4. 통계
 
-- 총 처리 케이스: 2건
-- 등록 완료: 2건
+- 총 처리 케이스: 4건
+- 신규 등록: 2건 (CASE-001, CASE-003)
+- 정보 변경·정정: 2건 (CASE-002, CASE-004)
 - 진행 중: 0건
 - 보류: 0건
 

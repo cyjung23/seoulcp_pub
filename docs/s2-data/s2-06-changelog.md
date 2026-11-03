@@ -1,9 +1,48 @@
 ]633;E;head -9 /tmp/s2-06-changelog.backup3.md;159001f6-678c-4c66-ab1f-0fd0424de468]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
 
-**최종 갱신:** 2026-10-13
+**최종 갱신:** 2026-11-03
 **범위:** v2.18 (2026-04-19) ~ 현재
 **아카이브:** [v2.0 ~ v2.17 보기](./s2-06-changelog-archive-v2.0-v2.17.md)
 **전체 인덱스:** [버전 인덱스 보기](./s2-06-changelog-index.md)
+
+---
+
+## v2.36 (2026-11-03) — CASE-003 셀린의원 홍대점 신규 등록 + CASE-004 닥터파마니의원 전환 + FIX-004 + OPS-001
+
+### DATA-010 (CASE-003, 신규 등록) — 셀린의원 홍대점 (clinic_id 2899)
+- 요청자: 셀린의원 홍대점 운영사. 2026-10-30 처리.
+- `clinics` INSERT 1건 (id 2899): 서울특별시 마포구 양화로 162, 좋은사람들빌딩 15층 / 1800-6156 / https://hongdae.cellinclinic.com / 평일 10:00~20:00, 토·일·공휴일 10:00~17:00 / 한국어·영어·일본어·중국어 / 좌표 37.556431, 126.9238845 (modoodoc hospital/86419 기반).
+- `standard_treatments` INSERT 2건: 볼뉴머(`041bec93-7311-4883-afb6-71cf3e569b9e`, 리프팅 시술, sort_order 16) / 색소치료(`174317f1-0256-48d5-b2ec-cd3c0ac02a95`, 피부질환, sort_order 6). name_ja·name_zh 포함(볼뉴머 "沃纽美" 간체 정정 포함).
+- `clinic_treatments` INSERT 18건 (id 39105~39122): Petit 4종, Lifting 6종(볼뉴머 포함), Skin/Body 8종.
+- 본점·명동점과는 별개 clinic으로 등록 (네트워크의원 정책: 지점은 독립 clinic으로 간주).
+- doctors(이송 원장)·description은 DB 저장, UI 미노출(정책).
+
+### DATA-011·012·013 (CASE-004, 전환) — 닥터파마니의원 (구 메이린청담, clinic_id 485)
+- 요청자: GeoWise(marketing@geowise.co.kr). 2026-11-03 처리. 2023년 개설신고증명서상 명칭 변경 완료 → scp DB 후행 반영.
+- 접근 B 채택 (clinic_id 485 유지, 명칭·홈페이지·시술·장비 전면 교체). 메이린 네트워크 탈퇴 후 "Revitalization Center" (항노화·웰니스 특화)로 완전 리뉴얼.
+- **DATA-011** `clinics` UPDATE (id 485): name_ko '닥터파마니의원' / name_en 'Dr.PARMANI CLINIC' / website https://drparmani.com / operating_hours '월화수금 10:00-19:00, 토 10:00-16:00, 목·일·공휴일 휴진' / specialties ["항노화","피부항노화","리프팅","안티에이징","웰니스"] / doctors [{"info":"박현준 원장"}] / description 전면 재작성 (메이린 흔적 제거) / name_en_source 'official_request_2026-11-03'.
+- **DATA-012** `clinic_treatments`: 기존 3건(id 18355·18356·18357 리프팅·리쥬란·secret) DELETE → 72건 INSERT (id 39123~39194). 3개 프로그램(Revitalization / Skin Revitalization / Signature Membership) 전면 반영. standard_treatments 신규 "피부재생" 카테고리 1개 신설(결정 J).
+- **DATA-013** `clinic_devices`: 56건 반영. 기존 devices 재사용 17건(Genesis 중복 정리: id 164 → id 169 일원화) + devices INSERT 신규 39건. devices 신규 카테고리 3개 신설: "항노화 진단" / "항노화 치료" / "피부재생". manufacturer 필드는 홈페이지 확인 가능한 범위 내 채움(결정 S-b).
+- maylincheongdam.com → drparmani.com 리디렉션 없음 (요청사항). 메이린 네트워크 타 지점(1170·1995·875)과의 연결 없음 확인.
+
+### FIX-004 (전역 버그, 신규 티켓)
+- 증상: ja/zh 페이지에서 `standard_treatments.name_ja·name_zh`가 존재함에도 시술명·카테고리가 영문(name_en)으로 폴백.
+- 영향: 2,000+ clinic 페이지의 ja/zh 전체. 셀린 본점(id 1) 교차검증으로 확정 (ISR 캐시 이슈 아님).
+- 수정 대상: `src/app/[locale]/clinics/[id]/page.tsx` locale별 컬럼 선택 로직. FIX-003(진료시간)과 동종 버그.
+- 상태: 티켓 등록만, 수정은 별도 진행.
+
+### OPS-001 (운영 사건, 2026-10-26 ~ 10-30)
+- Vercel Hobby Plan 무료 한도 초과(Fluid Active CPU 205%, Memory 126%)로 seoulcp.com 접속 불가.
+- 원인: Bytespider 등 봇 어뷰즈 (Singapore sin1, 10/28 중국 Urumqi 98명 세션 2초). ISR revalidate=60 캐시 miss 반복이 비용 폭증 가속.
+- Supabase Unhealthy (API Gateway 611건 실패, Success Rate 0.2%) 동반 발생.
+- 조치: Vercel Firewall Bot Protection(Challenge) + AI Bots 토글 On, Supabase Restart. 복구 확인 (Success Rate 38%, STATUS Healthy).
+- 상세: `docs/s8-operations/incidents/incident-001-vercel-supabase-2026-10.md`.
+- 후속(별도 티켓): PERF-001 ISR revalidate 60→3600 상향 검토, middleware RATE_LIMIT_MAX 300→30~60 조정 검토.
+
+### 보류·후속
+- FIX-004 수정 (ja/zh name_en 폴백 전역 버그).
+- DEC-056 Phase 1 (seoulclinicpick.com 브랜치 분리 전환) 착수.
+- 볼뉴머·색소치료 외 신규 standard_treatments 다국어명 품질 검수(zh 간체 통일).
 
 ---
 
