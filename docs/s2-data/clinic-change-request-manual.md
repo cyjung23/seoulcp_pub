@@ -38,13 +38,17 @@ clinics 테이블 정정 시 반드시 함께 갱신:
 - name_en_source — 'auto' | 'clinic_request' | 'admin'
 - name_en_corrected_at — TIMESTAMPTZ (KST 기준)
 
-## 대장 기록 규칙
+## 이력 기록 규칙 (clinic timeline 방식)
 
-파일: docs/s2-data/clinic-change-requests.md
+파일: `docs/s8-operations/clinics/clinic-{ID}-{slug}.md`
 
-한 요청 = 한 행. 컬럼: 처리일 | 병원ID | 요청 내용 | 처리 결과 | 참조(commit SHA 또는 백로그 ID).
+처리 순서:
+1. `ls docs/s8-operations/clinics/clinic-{ID}-*.md` 실행
+2. 파일 존재 → 하단에 `### YYYY-MM-DD — 제목 (티켓ID)` 섹션 append
+3. 파일 없음 → `cp docs/s0-meta/clinic-file-template.md` 복사 후 작성
+4. 상단 메타(최근 변경, 등록 상태) 갱신
 
-보류 항목은 "보류 (사유, 백로그 ID)"로 기록하고, 나중에 처리되면 sed로 갱신.
+상세 SQL·결정 근거는 changelog 또는 incident 문서에 기록, clinic timeline에는 1~3줄 요약 + 링크만.
 
 ## 커밋 메시지 컨벤션
 

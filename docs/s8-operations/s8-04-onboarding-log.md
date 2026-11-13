@@ -1,154 +1,26 @@
-# s8-04. 병원 입점 이력 로그
+# S8-04: 병원 입점 이력 로그 (색인)
 
-**파일 버전:** s8-04
-**소속:** 기획1팀
-**업데이트:** 2026-11-13
-
----
-
-## 1. 개요
-
-병원 입점 문의부터 사이트 공개까지의 처리 이력을 시간순으로 기록. 향후 유사 케이스 대응 시 참고 자료로 활용.
-
-## 2. 기록 형식
-
-각 케이스마다 아래 항목을 기록:
-
-- 병원명 / 도메인
-- 문의일 / 문의자
-- 크롤링 결과 요약 (시술 N종, 장비 N종)
-- 회신일 / 회신 요약
-- 병원 회신일 / 보강 자료
-- DB 등록일 / 공개일 / clinic_id
-- 특이사항 및 트러블슈팅
+**최종 갱신:** 2026-11-13
+**역할 변경 공지:** 2026-11-13부터 이 파일은 색인 역할만 담당. 병원별 상세 이력은 `clinics/clinic-{ID}-{slug}.md`에 기록.
 
 ---
 
-## 3. 처리 이력
+## 병원별 이력 파일 목록
 
-### CASE-001. 물방울성형외과
-
-**상세 데이터:** [cases/case-001-mulbangul-clinic.md](cases/case-001-mulbangul-clinic.md)
-
-- **병원명**: 물방울 성형외과 (Stilla Plastic Surgery & Anti-Aging)
-- **도메인**: https://mbwps.com
-- **문의일**: 2026-09-10
-- **문의자**: 강가혜 팀장 (마케팅, 경력 27년)
-- **문의 채널**: 이메일
-
-**크롤링 결과 (2026-09-14 실행)**
-
-- 사용 도구: scraper_static.py (WordPress + Astra 테마이므로 정적 크롤링 선택)
-- 대상 URL: sitemap에서 81개 수집 → core slug 필터링 후 20개로 축소
-- 수집 마크다운: 130,964자
-- 소요시간: 46초 (크롤링) + DeepSeek 추출 약 30초
-
-수집 데이터:
-- 병원명(한/영): 확보
-- 전화: +82-2-511-7333 확보
-- 홈페이지: https://mbwps.com 확보
-- 시술: 25종 확보 (가슴 9종, 눈 6종, 리프팅 8종, 주사 2종)
-- 장비: 7종 확보 (온다·소프라노·튠페이스·울쎄라·슈링크·실펌·리팟)
-- 시술-장비 매핑: 정확히 연결됨
-- **주소**: JSON에서 null (본문에는 "서울시 서초구 강남대로 557, 8층 (잠원동, 성한빌딩)"이 존재)
-- 지역구: null
-- 다국어 상담 지원: 빈 배열
-- 운영시간: 미추출
-
-**회신 (2026-09-14)**
-
-- 발신: SCP 기획팀 / seoulclinicpick@gmail.com
-- 형식: 8개 섹션 (플랫폼 소개 / 입점 절차 / 비용 / 수집 결과 / 추가 확인 4가지 / 등록 범위 / 수정 프로세스 / 제출 서류)
-- 추가 확인 요청 4가지:
-  1. 주소 확인 ("서초구 강남대로 557, 8층" 인용)
-  2. 운영시간
-  3. 다국어 상담 지원 여부
-  4. 가격 공개 정책
-
-**병원 회신 및 등록**
-
-- 병원 회신일: 2026-10-10 (수동 등록 결정)
-- DB 등록일: 2026-10-10
-- 공개일: 2026-10-10
-- clinic_id: 2898
-
-**특이사항 및 트러블슈팅**
-
-1. Playwright 실행 시 libatk-1.0.so.0 라이브러리 부족 에러 발생 → scraper_static.py로 전환하여 해결
-2. Yarn GPG 키(62D54FD4003F6525) 부재로 apt update 실패 → 시스템 라이브러리 설치 대신 정적 스크래퍼 사용
-3. footer 셀렉터 확장(footer, .site-footer, .ast-small-footer, .ast-footer-overlay)에도 DeepSeek이 주소를 추출하지 못함 → 원본 마크다운에서 grep으로 주소 확인 후 이메일로 재확인 요청
-4. DeepSeek 프롬프트 개선: 성형수술 카테고리(가슴성형·눈성형·여유증 등) 명시 추가 → 시술 10종에서 25종으로 증가
-5. 의료진 정보(doctors)는 SCP UI에 표시되지 않으므로 크롤링에서 제외
-
-**참고 파일 (seoulcp 저장소, 비공개)**
-
-- 크롤링 결과: /workspaces/seoulcp/backup/scraper/output/clinics_v3/mulbangul_clinic.json
-- 원본 마크다운: /workspaces/seoulcp/backup/scraper/output/raw_v3/mulbangul_clinic.md
-- URL 목록: /workspaces/seoulcp/backup/scraper/clinic_urls_mbwps.json
+| clinic_id | 병원명 | 최근 변경 | 파일 |
+|---|---|---|---|
+| 6 | 참의원 | 2026-09-04 | [clinic-6-cham.md](./clinics/clinic-6-cham.md) |
+| 485 | 닥터파마니의원 (구 메이린청담) | 2026-11-03 | [clinic-485-drparmani.md](./clinics/clinic-485-drparmani.md) |
+| 1494 | 라리성형외과의원 | 2026-10-13 | [clinic-1494-laree.md](./clinics/clinic-1494-laree.md) |
+| 2280 | 엄나구모성형외과의원 | 2026-08-11 | [clinic-2280-umnagumo.md](./clinics/clinic-2280-umnagumo.md) |
+| 2840 | 클림의원 명동점 | 2026-11-13 | [clinic-2840-kleam-myeongdong.md](./clinics/clinic-2840-kleam-myeongdong.md) |
+| 2898 | 물방울성형외과 | 2026-10-10 | [clinic-2898-mulbangul.md](./clinics/clinic-2898-mulbangul.md) |
+| 2899 | 셀린의원 홍대점 | 2026-10-30 | [clinic-2899-cellin-hongdae.md](./clinics/clinic-2899-cellin-hongdae.md) |
 
 ---
 
-### CASE-002. 라리성형외과의원 (정보 정정 + 추가 반영)
+## 참고
 
-- **병원명**: 라리성형외과의원 (Laree Plastic Surgery)
-- **clinic_id**: 1494 (기존 등록)
-- **요청자**: VENTRIX Co. / ventrixcorp@gmail.com (마케팅 대행)
-- **처리 이력**:
-  - 1차 (2026-10-06, DATA-007 / v2.32): 주소 이전·연락처·영문 상호 정정
-  - 2차 (2026-10-13, DATA-009 / v2.35): 진료시간·의료진·소개·수술 항목 추가
-- **회신**: 각 처리일에 요청자 메일 회신 완료
-- **상세**: [cases/case-002-laree-plastic-surgery.md](./cases/case-002-laree-plastic-surgery.md)
-
----
-
-
----
-
-### CASE-003. 셀린의원 홍대점 (신규 등록)
-
-- **병원명**: 셀린의원 홍대점 (Cellin Clinic Hongdae)
-- **clinic_id**: 2899 (신규)
-- **요청자**: 셀린의원 홍대점 담당자
-- **처리 이력**:
-  - 2026-10-30 (DATA-010 / v2.35): 신규 등록, standard_treatments 2건 신규(볼뉴머/색소치료), clinic_treatments 18건
-- **상세**: [cases/case-003-cellin-clinic-hongdae.md](./cases/case-003-cellin-clinic-hongdae.md)
-
----
-
-### CASE-004. 닥터파마니의원 (상호 변경, 구 메이린청담)
-
-- **병원명**: 닥터파마니의원 (Dr.PARMANI CLINIC)
-- **clinic_id**: 485 (기존 ID 유지)
-- **요청자**: 주식회사 행복경영연구소 오창석 / marketing@geowise.co.kr (닥터파마니의원 위임)
-- **처리 이력**:
-  - 2026-11-03 (DATA-011/012/013 / v2.36): 상호 변경(메이린청담→닥터파마니), 홈페이지·진료시간 교체, standard_treatments 62건 신규(항노화 카테고리 3종 신설), devices 40건 신규, clinic_treatments 72건·clinic_devices 56건 재구성
-- **회신**: 처리일 당일 요청자 메일 회신 완료
-- **상세**: [cases/case-004-drparmani-clinic.md](./cases/case-004-drparmani-clinic.md)
-
----
-
-
-### CASE-005. 클림의원 명동점 (정보 정정)
-
-- **병원명**: 클림의원 명동점 (Kleam Clinic Myeongdong)
-- **clinic_id**: 2840 (기존 등록)
-- **요청자**: VENTRIX Co. / ventrixcorp@gmail.com (마케팅 대행)
-- **처리 이력**:
-  - 2026-11-13 (DATA-014 / v2.37): name_ko 띄어쓰기 정정, name_en "Kleam Clinic Myeongdong"(홍대점 32와 일관), phone/operating_hours 결측 채움. 홍대점(32)과 FK/연계 없이 독립 관리.
-- **회신**: 처리일 당일 요청자 메일 회신 완료
-- **상세**: [cases/case-005-kleam-clinic-myeongdong.md](./cases/case-005-kleam-clinic-myeongdong.md)
-
----
-## 4. 통계
-
-- 총 처리 케이스: 5건
-- 신규 등록: 2건 (CASE-001, CASE-003)
-- 정보 변경·정정: 3건 (CASE-002, CASE-004, CASE-005)
-- 진행 중: 0건
-- 보류: 0건
-
-## 5. 관련 문서
-
-- s8-01-clinic-onboarding-playbook.md — 전체 프로세스
-- s8-02-crawling-guide.md — 크롤링 절차
-- s8-03-data-collection-checklist.md — 수집 체크리스트
+- 신규 요청 처리 흐름: [../s2-data/clinic-change-request-manual.md](../s2-data/clinic-change-request-manual.md)
+- 문서 작성 규칙: [../s0-meta/doc-style-guide.md](../s0-meta/doc-style-guide.md)
+- 과거 CASE-001~005 상세 파일은 2026-11-13 clinic timeline 방식 전환 시 삭제 (git 히스토리 보존).

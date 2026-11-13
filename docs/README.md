@@ -136,4 +136,8 @@ https://raw.githubusercontent.com/cyjung23/seoulcp_pub/main/docs/s1-master/s1-01
 | s8-02-crawling-guide.md | 병원 홈페이지 크롤링 가이드 | 2026-09-14 |
 | s8-03-data-collection-checklist.md | 정보 수집 체크리스트 | 2026-09-14 |
 | s8-04-onboarding-log.md | 병원 입점 이력 로그 | 2026-09-14 |
-| cases/case-001-mulbangul-clinic.md | CASE-001 물방울성형외과 상세 | 2026-09-14 |
+| clinics/clinic-{ID}-{slug}.md | 병원별 변경 이력 (2026-11-13~) | 2026-11-13 |
+
+---
+
+**AI 세션 시작 시**: [s0-meta/ai-onboarding.md](./s0-meta/ai-onboarding.md) 먼저 읽기.
