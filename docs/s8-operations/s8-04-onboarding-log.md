@@ -2,7 +2,7 @@
 
 **파일 버전:** s8-04
 **소속:** 기획1팀
-**업데이트:** 2026-09-14
+**업데이트:** 2026-11-13
 
 ---
 
@@ -127,11 +127,23 @@
 
 ---
 
+
+### CASE-005. 클림의원 명동점 (정보 정정)
+
+- **병원명**: 클림의원 명동점 (Kleam Clinic Myeongdong)
+- **clinic_id**: 2840 (기존 등록)
+- **요청자**: VENTRIX Co. / ventrixcorp@gmail.com (마케팅 대행)
+- **처리 이력**:
+  - 2026-11-13 (DATA-014 / v2.37): name_ko 띄어쓰기 정정, name_en "Kleam Clinic Myeongdong"(홍대점 32와 일관), phone/operating_hours 결측 채움. 홍대점(32)과 FK/연계 없이 독립 관리.
+- **회신**: 처리일 당일 요청자 메일 회신 완료
+- **상세**: [cases/case-005-kleam-clinic-myeongdong.md](./cases/case-005-kleam-clinic-myeongdong.md)
+
+---
 ## 4. 통계
 
-- 총 처리 케이스: 4건
+- 총 처리 케이스: 5건
 - 신규 등록: 2건 (CASE-001, CASE-003)
-- 정보 변경·정정: 2건 (CASE-002, CASE-004)
+- 정보 변경·정정: 3건 (CASE-002, CASE-004, CASE-005)
 - 진행 중: 0건
 - 보류: 0건
 

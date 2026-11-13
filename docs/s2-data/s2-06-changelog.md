@@ -1,9 +1,42 @@
 ]633;E;head -9 /tmp/s2-06-changelog.backup3.md;159001f6-678c-4c66-ab1f-0fd0424de468]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup2.md;9a330de6-4ee7-402a-bc98-44f36734681d]633;C]633;E;head -n 9 /tmp/s2-06-changelog.backup.md;05fb77dd-4a17-435c-a8d3-ba1b6222969b]633;C# S2-06: 버전별 변경 사항 (활성)
 
-**최종 갱신:** 2026-11-03
+**최종 갱신:** 2026-11-13
 **범위:** v2.18 (2026-04-19) ~ 현재
 **아카이브:** [v2.0 ~ v2.17 보기](./s2-06-changelog-archive-v2.0-v2.17.md)
 **전체 인덱스:** [버전 인덱스 보기](./s2-06-changelog-index.md)
+
+---
+
+## v2.37 (2026-11-13) — PERF-001 ISR 상향 + OPS-002 중국 AS 봇 재공격 대응 + OPS-003 Vercel Pro 전환 + CASE-005 클림의원 명동점 정정
+
+### PERF-001 (성능 개선, 2026-11-05) ✅
+- `src/app/[locale]/clinics/[id]/page.tsx` ISR `revalidate` 60초 → 3600초(1시간) 상향. Supabase "Disk IO Budget 소진 임박" 경고(2026-11-05) 1차 대응. 2,700+ clinic × 4개 언어 ISR 재생성으로 IO 과부하 완화 목적.
+- commit `4cd3777` (seoulcp main). 다른 페이지(wiki, home, clinics 목록)는 기존 3600~21600초 유지, search만 60초 유지.
+- 결과: 5일 후(11-10) Disk IO 경고 재발하여 부분 효과만 확인. 근본 원인은 OPS-002(봇 재공격)로 판명.
+
+### OPS-002 (중국 AS 봇 재공격, 2026-11-10 ~ 11-12) ✅
+- 증상: Supabase STATUS Unhealthy, API Gateway Success Rate 98.3% → 15.2% 폭락, Vercel Functions Timeout 9%.
+- 원인: 중국계 클라우드 3사 (UCLOUD HK AS 135377 / China Unicom AS 4837 / China Telecom AS 4134) 봇 집중 공격.
+- 조치: Vercel Firewall에 Challenge 규칙 3개 신설 (AS 단위). Challenge 선택 근거는 중국어 페이지 유지 정책과 양립 (실사용자는 JS 챌린지 통과, 봇만 차단).
+- 결과: Supabase 자체 회복(Restart 불필요). 조치 후 1시간 내 Success Rate 15.2% → 100%.
+- 상세: [incidents/incident-002-china-bot-reattack-2026-11.md](../s8-operations/incidents/incident-002-china-bot-reattack-2026-11.md)
+
+### OPS-003 (Vercel Hobby 한도 초과 → Pro 전환, 2026-11-13) ✅
+- 증상: seoulcp.com "This deployment is temporarily paused" 전면 접속 불가.
+- 원인: OPS-002 봇 공격 후폭풍으로 Vercel Hobby Fluid Provisioned Memory 월간 한도 초과. 12-13까지 자동 Paused 상태.
+- 조치: Vercel Pro 업그레이드 ($20/월). Spend Management Budget $20 + Pause On + Alert 50%/75%/100% 자동 설정. 과금 100% 차단 안전장치 확보.
+- 다운그레이드 예정: 2026-12-10경 Hobby 복귀 (평시 트래픽 20~30명/일 기준 Hobby 충분).
+- 상세: [incidents/incident-003-vercel-hobby-limit-2026-11.md](../s8-operations/incidents/incident-003-vercel-hobby-limit-2026-11.md)
+
+### DATA-014 (CASE-005, 2026-11-13) ✅
+- 요청자: VENTRIX Co. (ventrixcorp@gmail.com), 2026-11-13 처리.
+- `clinics` UPDATE (id 2840, 클림의원 명동점): name_ko "클림의원명동점" → "클림의원 명동점" (띄어쓰기 정정, 홍대점 표기와 일관화), name_en "클림 Clinic명동점" → "Kleam Clinic Myeongdong" (네트워크 공식 영문 표기, clinic 32 홍대점 "Kleam Clinic Hongdae"와 일관), phone NULL → "02-773-5786", operating_hours NULL → "월~금 09:30~20:30, 토·일 09:00~18:00". name_en_source="official_request_2026-11-13".
+- 접근: clinic_id 유지, 요청 항목만 독립 정정 (DATA-005 정책). 클림 네트워크 홍대점(clinic 32)과 FK/연계 없이 독립 관리 (CASE-003 셀린 선례).
+- clinics 테이블 name_ja·name_zh 컬럼 부재 재확인 (CASE-004에서도 동일).
+- 상세: [cases/case-005-kleam-clinic-myeongdong.md](../s8-operations/cases/case-005-kleam-clinic-myeongdong.md)
+
+### FIX-004 (ja/zh name_en 폴백 전역 버그, 📋 대기)
+- v2.36 등록, 미착수 상태 유지. 수정 대상 `src/app/[locale]/clinics/[id]/page.tsx` locale별 컬럼 선택 로직 (FIX-003 동종 버그).
 
 ---
 
